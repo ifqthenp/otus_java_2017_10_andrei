@@ -4,9 +4,115 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>otus_java_2017_10</groupId>
+    <name>otus-2017-10-hw-01-andrei</name>
+    <description>Maven and dependencies setup</description>
+    <url>https://github.com/ifqthenp/otus_java_2017_10_andrei/tree/master/hw_01_maven</url>
+
+    <developers>
+        <developer>
+            <name>Andrei</name>
+        </developer>
+    </developers>
+
+    <groupId>ru.otus.2017_10</groupId>
     <artifactId>hw_01_maven</artifactId>
     <version>1.0-SNAPSHOT</version>
+    <packaging>jar</packaging>
 
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
+        <com.google.guava.version>23.0</com.google.guava.version>
+        <com.google.code.gson.version>2.8.2</com.google.code.gson.version>
+        <org.apache.commons.version>3.6.1</org.apache.commons.version>
+        <main.class>ru.otus.hw01.RandomizedMatrix</main.class>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.google.code.gson</groupId>
+            <artifactId>gson</artifactId>
+            <version>${com.google.code.gson.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-math3</artifactId>
+            <version>${org.apache.commons.version}</version>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <finalName>${project.name}</finalName>
+        <plugins>
+            <!--Apache Maven JAR Plugin-->
+            <!--https://maven.apache.org/plugins/maven-jar-plugin/-->
+            <!--<plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>3.0.0</version>
+                <configuration>
+                    <archive>
+                        <manifest>
+                            <addClasspath>true</addClasspath>
+                            <mainClass>ru.otus.hw01.RandomizedMatrix</mainClass>
+                        </manifest>
+                    </archive>
+                </configuration>
+            </plugin>-->
+
+            <!--Apache Maven Assembly Plugin-->
+            <!--https://maven.apache.org/plugins/maven-assembly-plugin/index.html-->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <version>3.1.0</version>
+                <configuration>
+                    <appendAssemblyId>false</appendAssemblyId>
+                    <descriptorRefs>
+                        <descriptorRef>jar-with-dependencies</descriptorRef>
+                    </descriptorRefs>
+                    <archive>
+                        <manifest>
+                            <mainClass>${main.class}</mainClass>
+                        </manifest>
+                    </archive>
+                </configuration>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>single</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <!--Apache Maven Shade Plugin-->
+            <!--http://maven.apache.org/plugins/maven-shade-plugin/index.html-->
+            <!--<plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-shade-plugin</artifactId>
+                <version>3.1.0</version>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>shade</goal>
+                        </goals>
+                        <configuration>
+                            <createDependencyReducedPom>false</createDependencyReducedPom>
+                            <minimizeJar>true</minimizeJar>
+                            <transformers>
+                                <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+                                    <mainClass>ru.otus.hw01.RandomizedMatrix</mainClass>
+                                </transformer>
+                            </transformers>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>-->
+        </plugins>
+    </build>
 
 </project>
