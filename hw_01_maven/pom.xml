@@ -45,22 +45,6 @@
     <build>
         <finalName>${project.name}</finalName>
         <plugins>
-            <!--Apache Maven JAR Plugin-->
-            <!--https://maven.apache.org/plugins/maven-jar-plugin/-->
-            <!--<plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-jar-plugin</artifactId>
-                <version>3.0.0</version>
-                <configuration>
-                    <archive>
-                        <manifest>
-                            <addClasspath>true</addClasspath>
-                            <mainClass>ru.otus.hw01.RandomizedMatrix</mainClass>
-                        </manifest>
-                    </archive>
-                </configuration>
-            </plugin>-->
-
             <!--Apache Maven Assembly Plugin-->
             <!--https://maven.apache.org/plugins/maven-assembly-plugin/index.html-->
             <plugin>
@@ -87,31 +71,6 @@
                     </execution>
                 </executions>
             </plugin>
-
-            <!--Apache Maven Shade Plugin-->
-            <!--http://maven.apache.org/plugins/maven-shade-plugin/index.html-->
-            <!--<plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-shade-plugin</artifactId>
-                <version>3.1.0</version>
-                <executions>
-                    <execution>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>shade</goal>
-                        </goals>
-                        <configuration>
-                            <createDependencyReducedPom>false</createDependencyReducedPom>
-                            <minimizeJar>true</minimizeJar>
-                            <transformers>
-                                <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
-                                    <mainClass>ru.otus.hw01.RandomizedMatrix</mainClass>
-                                </transformer>
-                            </transformers>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>-->
         </plugins>
     </build>
 
