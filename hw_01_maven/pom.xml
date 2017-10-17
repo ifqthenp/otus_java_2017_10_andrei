@@ -26,7 +26,7 @@
         <com.google.guava.version>23.0</com.google.guava.version>
         <com.google.code.gson.version>2.8.2</com.google.code.gson.version>
         <org.apache.commons.version>3.6.1</org.apache.commons.version>
-        <main.class>ru.otus.hw01.RandomizedMatrix</main.class>
+        <main.class>ru.otus.hw01.RandomizedMatrixDemo</main.class>
     </properties>
 
     <dependencies>
@@ -40,6 +40,11 @@
             <artifactId>commons-math3</artifactId>
             <version>${org.apache.commons.version}</version>
         </dependency>
+        <!--<dependency>-->
+        <!--<groupId>com.github.wvengen</groupId>-->
+        <!--<artifactId>proguard-maven-plugin</artifactId>-->
+        <!--<version>2.0.14</version>-->
+        <!--</dependency>-->
     </dependencies>
 
     <build>
@@ -55,7 +60,8 @@
                     <archive>
                         <manifest>
                             <addClasspath>true</addClasspath>
-                            <mainClass>ru.otus.hw01.RandomizedMatrix</mainClass>
+                            <mainClass>ru.otus.hw01.RandomizedMatrixDemo
+                            </mainClass>
                         </manifest>
                     </archive>
                 </configuration>
@@ -63,7 +69,7 @@
 
             <!--Apache Maven Assembly Plugin-->
             <!--https://maven.apache.org/plugins/maven-assembly-plugin/index.html-->
-            <plugin>
+            <!--<plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-assembly-plugin</artifactId>
                 <version>3.1.0</version>
@@ -86,11 +92,11 @@
                         </goals>
                     </execution>
                 </executions>
-            </plugin>
+            </plugin>-->
 
             <!--Apache Maven Shade Plugin-->
             <!--http://maven.apache.org/plugins/maven-shade-plugin/index.html-->
-            <!--<plugin>
+            <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-shade-plugin</artifactId>
                 <version>3.1.0</version>
@@ -102,17 +108,58 @@
                         </goals>
                         <configuration>
                             <createDependencyReducedPom>false</createDependencyReducedPom>
-                            <minimizeJar>true</minimizeJar>
                             <transformers>
-                                <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
-                                    <mainClass>ru.otus.hw01.RandomizedMatrix</mainClass>
+                                <transformer
+                                    implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+                                    <mainClass>${main.class}</mainClass>
                                 </transformer>
                             </transformers>
                         </configuration>
                     </execution>
                 </executions>
+            </plugin>
+
+            <!--https://www.guardsquare.com/en/proguard/manual/introduction-->
+            <plugin>
+                <groupId>com.github.wvengen</groupId>
+                <artifactId>proguard-maven-plugin</artifactId>
+                <version>2.0.14</version>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals><goal>proguard</goal></goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <obfuscate>true</obfuscate>
+                    <injar>${project.build.finalName}.jar</injar>
+                    <outjar>${project.build.finalName}-obfuscated.jar</outjar>
+                    <outputDirectory>${project.build.directory}</outputDirectory>
+                    <proguardInclude>${basedir}/proguard.conf</proguardInclude>
+                </configuration>
+            </plugin>
+
+            <!--<plugin>
+                <groupId>com.github.wvengen</groupId>
+                <artifactId>proguard-maven-plugin</artifactId>
+                <version>2.0.14</version>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals><goal>proguard</goal></goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <obfuscate>true</obfuscate>
+                    <options>
+                        <option>-allowaccessmodification</option>
+                        <option>-keep public class ru.otus.hw01.RandomizedMatrixDemo { void main(java.lang.String[]); }</option>
+                    </options>
+                    <libs>
+                        <lib>${java.home}/lib/rt.jar</lib>
+                    </libs>
+                </configuration>
             </plugin>-->
         </plugins>
     </build>
-
 </project>
