@@ -70,6 +70,7 @@
                 </executions>
             </plugin>
 
+            <!--Pro Guard Obfuscation plugin-->
             <!--https://www.guardsquare.com/en/proguard/manual/introduction-->
             <plugin>
                 <groupId>com.github.wvengen</groupId>
