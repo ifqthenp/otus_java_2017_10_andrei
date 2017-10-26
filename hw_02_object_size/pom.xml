@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <name>otus-2017-10-hw-02-andrei</name>
+    <description>Calculate size of an object</description>
+    <url>https://github.com/ifqthenp/otus_java_2017_10_andrei/tree/master/hw_02_object_size</url>
+
+    <developers>
+        <developer>
+            <name>Andrei</name>
+        </developer>
+    </developers>
+
+    <groupId>ru.otus.2017_10</groupId>
+    <artifactId>hw_02_object_size</artifactId>
+    <version>1.0-SNAPSHOT</version>
+    <packaging>jar</packaging>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
+        <com.google.code.gson.version>2.8.2</com.google.code.gson.version>
+        <org.apache.maven-assembly-plugin.version>3.1.0</org.apache.maven-assembly-plugin.version>
+        <main.class>ru.otus.hw02.StandDemo</main.class>
+    </properties>
+
+    <build>
+        <finalName>${project.name}</finalName>
+        <plugins>
+            <!--Apache Maven Assembly Plugin-->
+            <!--https://maven.apache.org/plugins/maven-assembly-plugin/index.html-->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <version>${org.apache.maven-assembly-plugin.version}</version>
+                <configuration>
+                    <appendAssemblyId>false</appendAssemblyId>
+                    <descriptorRefs>
+                        <descriptorRef>jar-with-dependencies</descriptorRef>
+                    </descriptorRefs>
+                    <archive>
+                        <manifest>
+                            <mainClass>${main.class}</mainClass>
+                        </manifest>
+                    </archive>
+                </configuration>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>single</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+
+
+</project>
