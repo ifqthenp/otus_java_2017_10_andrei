@@ -3,29 +3,39 @@ package ru.otus.hw02;
 import java.lang.management.ManagementFactory;
 
 /**
- * VM options -Xmx512m -Xms512m
+ * Homework 2. Size of java object.
  */
 @SuppressWarnings({"RedundantStringConstructorCall", "InfiniteLoopStatement"})
 public class StandDemo
 {
-    public static void main(String... args) throws InterruptedException, InstantiationException, IllegalAccessException
+    public static void main(String[] args) throws InterruptedException
     {
         System.out.println("pid: " + ManagementFactory.getRuntimeMXBean().getName());
 
-        int size = 20_000_000;
-
-//        Object object = new Object();
-//        Object object = new String("");
-//        Object object = new String(new char[0]);
-        Object object = new MyClass();
+        int size = 1_000_000;
 
         Stand stand = new Stand();
-        stand.getObjectSize(object, size);
+
+        stand.getObjectSize(Object::new, size);
+        stand.getObjectSize(() -> new String(""), size);
+
+        stand.getObjectSize(MyClass::new, size);
+        stand.getObjectSize(MyClassWithString::new, size);
+
+        stand.getObjectSize(() -> new int[0], size);
+        stand.getObjectSize(() -> new int[100], size);
     }
 
-    public static class MyClass
+    private static class MyClass
     {
         private int i = 0;
         private long l = 1L;
+    }
+
+    private static class MyClassWithString
+    {
+        private int i = 0;
+        private long l = 1L;
+        private String s = "";
     }
 }
