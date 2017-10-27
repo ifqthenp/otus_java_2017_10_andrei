@@ -1,1 +1,2 @@
-# Homework 2. Size of an object.
+# Homework 2
+Caluculate size of Java object.
