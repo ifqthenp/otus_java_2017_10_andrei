@@ -7,32 +7,28 @@ import java.util.function.Supplier;
  */
 public class Stand
 {
-    public void getObjectSize(final Supplier<Object> o, final int size) throws InterruptedException
+    /**
+     * Measures the size of Java object.
+     *
+     * @param supplier supplier that generates values for array of objects
+     * @param size     size of the objects array
+     */
+    public <T> Object getObjectSize(final Supplier<T> supplier, final int size)
     {
-        cleanMemory();
+        final Object[] objects = new Object[size];
+        Runtime runtime = Runtime.getRuntime();
 
-        long memBefore = getMemoryDifference();
+        runtime.gc();
 
-        Object[] array = new Object[size];
+        long memBefore = runtime.totalMemory() - runtime.freeMemory();
         for (int i = 0; i < size; i++) {
-            array[i] = o.get();
+            objects[i] = supplier.get();
         }
 
-        long result = (getMemoryDifference() - memBefore) / size;
-        System.out.printf("%-42s%d%n", array[0].getClass().getCanonicalName(), result);
+        runtime.gc();
+        long memAfter = runtime.totalMemory() - runtime.freeMemory();
+        System.out.printf("%-42s%d%n", supplier.get().getClass().getCanonicalName(), Math.round((double) (memAfter - memBefore) / size));
 
-        cleanMemory();
-    }
-
-    private void cleanMemory() throws InterruptedException
-    {
-        System.gc();
-        Thread.sleep(10);
-    }
-
-    private long getMemoryDifference()
-    {
-        Runtime runtime = Runtime.getRuntime();
-        return runtime.totalMemory() - runtime.freeMemory();
+        return objects;
     }
 }
