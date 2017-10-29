@@ -46,9 +46,14 @@ public class MyArrayList<E> implements List<E>
         return this.size;
     }
 
+    /**
+     * Returns true if this list contains no elements.
+     *
+     * @return true if this list contains no elements
+     */
     public boolean isEmpty()
     {
-        return false;
+        return this.size == 0;
     }
 
     public boolean contains(final Object o)
