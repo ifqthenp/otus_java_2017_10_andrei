@@ -14,11 +14,6 @@ class MyArrayListSpec extends Specification {
         assert myArrayList != null
     }
 
-    def 'MyArrayList is not null when constructed'() {
-        expect:
-        new MyArrayList<>() != null
-    }
-
     def 'constructed list is MyArrayList.class'() {
         expect:
         new MyArrayList<>().class == MyArrayList.class
