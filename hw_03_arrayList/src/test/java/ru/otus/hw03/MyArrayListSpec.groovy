@@ -7,6 +7,13 @@ import spock.lang.Specification
  */
 class MyArrayListSpec extends Specification {
 
+    private MyArrayList<Object> myArrayList
+
+    def setup() {
+        myArrayList = new MyArrayList<>()
+        assert myArrayList != null
+    }
+
     def 'MyArrayList is not null when constructed'() {
         expect:
         new MyArrayList<>() != null
