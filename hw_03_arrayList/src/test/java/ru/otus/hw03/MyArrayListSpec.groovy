@@ -26,4 +26,51 @@ class MyArrayListSpec extends Specification {
         then:
         thrown(IllegalArgumentException)
     }
+
+    def "add() method adds element to end of the list"() {
+        when:
+        myArrayList.add("one")
+        myArrayList.add("two")
+        myArrayList.add("three")
+
+        then:
+        !myArrayList.isEmpty()
+        myArrayList.size() == 3
+        myArrayList.get(2) == "three"
+    }
+
+    def "get(int index) throws exception if 'index' is out of array boundary"() {
+        when:
+        myArrayList.add("one")
+        myArrayList.add("two")
+        myArrayList.add("three")
+        myArrayList.get(3)
+
+        then:
+        thrown(IndexOutOfBoundsException)
+    }
+
+    def "get(int index) returns correct element at specified index"() {
+        when:
+        myArrayList.add("one")
+        myArrayList.add("two")
+        myArrayList.add("three")
+
+        then:
+        myArrayList.get(0) == "one"
+        myArrayList.get(2) == "three"
+        myArrayList.get(1) == "two"
+    }
+
+    def "array can grow in size when necessary"() {
+        setup:
+        int arraySize = 50
+        for (int i = 0; i < arraySize; i++) {
+            myArrayList.add(i)
+        }
+
+        expect:
+        !myArrayList.isEmpty()
+        myArrayList.size() == arraySize
+    }
 }
