@@ -16,12 +16,12 @@ class MyArrayListSpec extends Specification {
 
     def 'constructed list is MyArrayList.class'() {
         expect:
-        new MyArrayList<>().class == MyArrayList.class
+        myArrayList.class == MyArrayList.class
     }
 
     def 'throws exception if list capacity is negative value'() {
         when:
-        new MyArrayList<>(-1)
+        myArrayList = new MyArrayList<>(-1)
 
         then:
         thrown(IllegalArgumentException)
