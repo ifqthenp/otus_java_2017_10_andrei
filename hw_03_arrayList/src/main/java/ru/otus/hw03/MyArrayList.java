@@ -76,9 +76,18 @@ public class MyArrayList<E> implements List<E>
         return null;
     }
 
-    public boolean add(final E e)
+    /**
+     * Appends the specified element to the end of this list.
+     *
+     * @param newElement element to be appended to this list
+     * @return true (as specified by {@code Collection.add(E)})
+     */
+    public boolean add(final E newElement)
     {
-        return false;
+        growArrayIfNecessary();
+        this.size++;
+        data[size - 1] = newElement;
+        return true;
     }
 
     public boolean remove(final Object o)
