@@ -125,9 +125,16 @@ public class MyArrayList<E> implements List<E>
 
     }
 
+    /**
+     * Returns the element at the specified position in this list.
+     *
+     * @param index index of the element to return
+     * @return element at the specified position in this list
+     */
     public E get(final int index)
     {
-        return null;
+        checkIndex(index);
+        return this.data[index];
     }
 
     public E set(final int index, final E element)
