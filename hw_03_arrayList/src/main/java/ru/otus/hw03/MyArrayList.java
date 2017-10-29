@@ -31,7 +31,7 @@ public class MyArrayList<E> implements List<E>
     public MyArrayList(final int capacity)
     {
         if (capacity < 0) {
-            throw new IllegalArgumentException("List size must be positive value");
+            throw new IllegalArgumentException("Array size cannot be negative: " + capacity);
         }
         data = (E[]) new Object[capacity];
     }
