@@ -33,9 +33,14 @@ public class MyArrayList<E> implements List<E>
         data = (E[]) new Object[capacity];
     }
 
+    /**
+     * Gets the number of elements in this list.
+     *
+     * @return the size of this list
+     */
     public int size()
     {
-        return 0;
+        return this.size;
     }
 
     public boolean isEmpty()
