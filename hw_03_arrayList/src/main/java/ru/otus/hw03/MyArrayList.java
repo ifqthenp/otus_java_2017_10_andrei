@@ -176,4 +176,29 @@ public class MyArrayList<E> implements List<E>
     {
         return null;
     }
+
+    /**
+     * Helper method to grow the size of this array when it is full.
+     * The array will grow twice the size of the original array.
+     */
+    private void growArrayIfNecessary()
+    {
+        if (this.size == this.data.length) {
+            final int growFactor = 2;
+            final int newCapacity = this.data.length * growFactor;
+            E[] temp = (E[]) new Object[newCapacity];
+            System.arraycopy(this.data, 0, temp, 0, this.size);
+            this.data = temp;
+        }
+    }
+
+    /**
+     * Helper method to check if index supplied is valid.
+     */
+    private void checkIndex(final int index)
+    {
+        if (index < 0 || index >= this.size) {
+            throw new IndexOutOfBoundsException("Index is not valid: " + index);
+        }
+    }
 }
