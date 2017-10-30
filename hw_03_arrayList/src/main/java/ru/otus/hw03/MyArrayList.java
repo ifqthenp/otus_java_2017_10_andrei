@@ -217,4 +217,19 @@ public class MyArrayList<E> implements List<E>
             throw new IndexOutOfBoundsException("Index is not valid: " + index);
         }
     }
+
+    @Override
+    public String toString()
+    {
+        StringBuilder result = new StringBuilder();
+        result.append("[");
+        for (int i = 0; i < this.size(); i++) {
+            if (i < this.size() - 1) {
+                result.append(data[i]).append(", ");
+            } else {
+                result.append(data[i]);
+            }
+        }
+        return result.append("]").toString();
+    }
 }
