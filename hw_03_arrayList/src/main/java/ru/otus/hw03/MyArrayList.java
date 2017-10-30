@@ -90,8 +90,24 @@ public class MyArrayList<E> implements List<E>
         return true;
     }
 
+    /**
+     * Removes the first occurrence of the specified element from
+     * this list, if it is present.
+     *
+     * @param o element to be removed from this list, if present
+     * @return true if this list contained the specified element
+     */
     public boolean remove(final Object o)
     {
+        for (int i = 0; i < this.size(); i++) {
+            if (data[i].equals(o)) {
+                if (i != this.size() - 1) {
+                    System.arraycopy(data, i + 1, data, i, this.size() - i - 1);
+                }
+                size--;
+                return true;
+            }
+        }
         return false;
     }
 
