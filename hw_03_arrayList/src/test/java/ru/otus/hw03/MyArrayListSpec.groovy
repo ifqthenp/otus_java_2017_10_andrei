@@ -73,4 +73,30 @@ class MyArrayListSpec extends Specification {
         !myArrayList.isEmpty()
         myArrayList.size() == arraySize
     }
+
+    def "remove(Object o) method removes first occurrence of specified element"() {
+        setup:
+        myArrayList.add("Alice")
+        myArrayList.add("Bob")
+        myArrayList.add("Alice")
+
+        when:
+        myArrayList.remove("Alice")
+
+        then:
+        myArrayList.size() == 2
+        myArrayList.toString() == "[Bob, Alice]"
+    }
+
+    def "remove(Object o) returns true if element removed successfully"() {
+        setup:
+        myArrayList.add("Alice")
+        myArrayList.add("Bob")
+        myArrayList.add("Alice")
+
+        expect:
+        myArrayList.remove("Alice")
+        myArrayList.size() == 2
+        !myArrayList.remove("Tom")
+    }
 }
