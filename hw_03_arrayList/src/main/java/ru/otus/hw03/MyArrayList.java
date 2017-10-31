@@ -153,9 +153,14 @@ public class MyArrayList<E> implements List<E>
         return false;
     }
 
+    /**
+     * Removes all of the elements from this list.
+     * The list will be empty after this call returns.
+     */
     public void clear()
     {
-
+        this.data = (E[]) new Object[0];
+        this.size = 0;
     }
 
     /**

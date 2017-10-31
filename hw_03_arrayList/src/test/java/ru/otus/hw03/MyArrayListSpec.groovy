@@ -172,4 +172,19 @@ class MyArrayListSpec extends Specification {
         "Bob"   || 3
         "Carl"  || -1
     }
+
+    def "clear() method removes all of the elements from the list"() {
+        setup:
+        myArrayList.add("Alice")
+        myArrayList.add("Bob")
+        myArrayList.add(null)
+        myArrayList.add("Bob")
+
+        when:
+        myArrayList.clear()
+
+        then:
+        myArrayList.size() == 0
+    }
+
 }
