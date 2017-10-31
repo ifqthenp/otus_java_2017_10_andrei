@@ -203,4 +203,17 @@ class MyArrayListSpec extends Specification {
         myArrayList.size() == 4
         !myArrayList.isEmpty()
     }
+
+    def "toArray() can return new array based on the list"() {
+        setup:
+        myArrayList.add("Tom")
+        myArrayList.add("Carl")
+        myArrayList.add("Harry")
+        myArrayList.add("Harry")
+
+        expect:
+        myArrayList.toArray().class == new Object[0].class
+        myArrayList.size() == myArrayList.toArray().length
+        myArrayList.toArray().toString() == "[Tom, Carl, Harry, Harry]"
+    }
 }

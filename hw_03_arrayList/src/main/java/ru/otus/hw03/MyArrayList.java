@@ -83,9 +83,23 @@ public class MyArrayList<E> implements List<E>
         return null;
     }
 
+    /**
+     * Returns an array containing all of the elements in this list in proper
+     * sequence (from first to last element).
+     * <p>
+     * The returned array will be "safe" in that no references to it are
+     * maintained by this list. (In other words, this method must allocate
+     * a new array). The caller is thus free to modify the returned array.
+     * <p>
+     * This method acts as bridge between array-based and collection-based APIs.
+     *
+     * @return an array containing all of the elements in this list in proper sequence
+     */
     public Object[] toArray()
     {
-        return new Object[0];
+        final E[] newData = (E[]) new Object[this.size()];
+        System.arraycopy(this.data, 0, newData, 0, this.size());
+        return newData;
     }
 
     public <T> T[] toArray(final T[] a)
