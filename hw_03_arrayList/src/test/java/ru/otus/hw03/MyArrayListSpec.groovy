@@ -125,4 +125,25 @@ class MyArrayListSpec extends Specification {
         myArrayList.contains(null)
         !myArrayList.contains("Carl")
     }
+
+    def "indexOf(Object o) method can find an index of specified element"() {
+        setup:
+        myArrayList.add("Alice")
+        myArrayList.add("Bob")
+        myArrayList.add("Bob")
+        myArrayList.add(null)
+        myArrayList.add("Tom")
+
+        expect:
+        myArrayList.indexOf(object) == result
+
+        where:
+        object  || result
+        "Alice" || 0
+        "Bob"   || 1
+        "Tom"   || 4
+        null    || 3
+        "Bob"   || 1
+        "Carl"  || -1
+    }
 }

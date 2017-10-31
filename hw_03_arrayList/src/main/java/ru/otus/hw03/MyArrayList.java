@@ -185,9 +185,28 @@ public class MyArrayList<E> implements List<E>
         return null;
     }
 
+    /**
+     * Returns the index of the first occurrence of the specified element in
+     * this list, or -1 if this list does not contain the element. More formally,
+     * returns the lowest index i such that (o==null ? get(i)==null : o.equals(get(i))),
+     * or -1 if there is no such index.
+     *
+     * @param o element to search for
+     * @return the index of the first occurrence of the specified element in
+     * this list, or -1 if this list does not contain the element
+     */
     public int indexOf(final Object o)
     {
-        return 0;
+        if (o == null) {
+            for (int i = 0; i < this.size(); i++) {
+                if (data[i] == null) return i;
+            }
+        } else {
+            for (int i = 0; i < this.size(); i++) {
+                if (o.equals(data[i])) return i;
+            }
+        }
+        return -1;
     }
 
     public int lastIndexOf(final Object o)
