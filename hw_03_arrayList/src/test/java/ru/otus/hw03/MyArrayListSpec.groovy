@@ -109,4 +109,20 @@ class MyArrayListSpec extends Specification {
         then:
         myArrayList.toString() == "[Alice, Bob, Alice]"
     }
+
+    def "contains(Object o) returns true if list holds specified element"() {
+        when:
+        myArrayList.add("Alice")
+        myArrayList.add("Bob")
+        myArrayList.add("Bob")
+        myArrayList.add(null)
+        myArrayList.add("Tom")
+
+
+        then:
+        myArrayList.contains("Alice")
+        myArrayList.contains("Bob")
+        myArrayList.contains(null)
+        !myArrayList.contains("Carl")
+    }
 }

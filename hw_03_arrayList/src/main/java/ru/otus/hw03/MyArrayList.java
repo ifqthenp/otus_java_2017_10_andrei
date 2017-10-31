@@ -56,8 +56,25 @@ public class MyArrayList<E> implements List<E>
         return this.size == 0;
     }
 
+    /**
+     * Returns true if this list contains the specified element.
+     * More formally, returns true if and only if this list contains
+     * at least one element e such that (o==null ? e==null : o.equals(e)).
+     *
+     * @param o element whose presence in this list is to be tested
+     * @return true if this list contains the specified element
+     */
     public boolean contains(final Object o)
     {
+        if (o == null) {
+            for (int i = 0; i < this.size(); i++) {
+                if (data[i] == null) return true;
+            }
+        } else {
+            for (int i = 0; i < this.size(); i++) {
+                if (o.equals(data[i])) return true;
+            }
+        }
         return false;
     }
 
