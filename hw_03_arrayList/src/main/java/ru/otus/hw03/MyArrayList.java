@@ -209,9 +209,34 @@ public class MyArrayList<E> implements List<E>
         return -1;
     }
 
+    /**
+     * Returns the index of the last occurrence of the specified
+     * element in this list, or -1 if this list does not contain
+     * the element.* More formally, returns the highest index i
+     * such that (o==null ? get(i)==null : o.equals(get(i))), or
+     * -1 if there is no such index.
+     *
+     * @param o element to search for
+     * @return the index of the last occurrence of the specified element
+     * in this list, or -1 if this list does not contain the element
+     */
     public int lastIndexOf(final Object o)
     {
-        return 0;
+        int lastIndex = -1;
+        if (o == null) {
+            for (int i = 0; i < this.size(); i++) {
+                if (data[i] == null) {
+                    lastIndex = getLastIndexOf(i, lastIndex);
+                }
+            }
+        } else {
+            for (int i = 0; i < this.size(); i++) {
+                if (o.equals(data[i])) {
+                    lastIndex = getLastIndexOf(i, lastIndex);
+                }
+            }
+        }
+        return lastIndex;
     }
 
     public ListIterator<E> listIterator()
@@ -227,6 +252,18 @@ public class MyArrayList<E> implements List<E>
     public List<E> subList(final int fromIndex, final int toIndex)
     {
         return null;
+    }
+
+    /**
+     * Helper method to find last index of specified element in this list.
+     *
+     * @param currIndex current index of the element
+     * @param lastIndex last index of the element
+     * @return last index of the element in this list
+     */
+    private int getLastIndexOf(final int currIndex, final int lastIndex)
+    {
+        return currIndex > lastIndex ? currIndex : lastIndex;
     }
 
     /**

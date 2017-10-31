@@ -146,4 +146,30 @@ class MyArrayListSpec extends Specification {
         "Bob"   || 1
         "Carl"  || -1
     }
+
+
+    def "lastIndexOf(Object o) method can find the index of the last occurrence of the specified element"() {
+        setup:
+        myArrayList.add("Alice")
+        myArrayList.add("Bob")
+        myArrayList.add(null)
+        myArrayList.add("Bob")
+        myArrayList.add(null)
+        myArrayList.add("Alice")
+        myArrayList.add("Tom")
+        myArrayList.add(null)
+
+        expect:
+        myArrayList.lastIndexOf(object) == result
+
+        where:
+        object  || result
+        "Alice" || 5
+        "Harry" || -1
+        "Bob"   || 3
+        "Tom"   || 6
+        null    || 7
+        "Bob"   || 3
+        "Carl"  || -1
+    }
 }
