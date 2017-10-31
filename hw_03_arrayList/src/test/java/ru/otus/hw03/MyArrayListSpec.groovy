@@ -99,4 +99,14 @@ class MyArrayListSpec extends Specification {
         myArrayList.size() == 2
         !myArrayList.remove("Tom")
     }
+
+    def "toString() method returns correct string representation of the list"() {
+        when:
+        myArrayList.add("Alice")
+        myArrayList.add("Bob")
+        myArrayList.add("Alice")
+
+        then:
+        myArrayList.toString() == "[Alice, Bob, Alice]"
+    }
 }
