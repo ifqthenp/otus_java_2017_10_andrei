@@ -185,6 +185,22 @@ class MyArrayListSpec extends Specification {
 
         then:
         myArrayList.size() == 0
+        myArrayList.isEmpty()
     }
 
+    def "list can grow after it has been cleared"() {
+        setup:
+        myArrayList.add("Alice")
+        myArrayList.add("Bob")
+        myArrayList.add(null)
+        myArrayList.clear()
+        myArrayList.add("Tom")
+        myArrayList.add("Carl")
+        myArrayList.add("Harry")
+        myArrayList.add("Harry")
+
+        expect:
+        myArrayList.size() == 4
+        !myArrayList.isEmpty()
+    }
 }

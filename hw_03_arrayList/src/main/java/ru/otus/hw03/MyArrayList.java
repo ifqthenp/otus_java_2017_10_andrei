@@ -159,7 +159,7 @@ public class MyArrayList<E> implements List<E>
      */
     public void clear()
     {
-        this.data = (E[]) new Object[0];
+        this.data = (E[]) new Object[1];
         this.size = 0;
     }
 
