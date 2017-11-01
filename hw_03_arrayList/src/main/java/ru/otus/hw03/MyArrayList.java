@@ -63,16 +63,7 @@ public class MyArrayList<E> implements List<E>
      */
     public boolean contains(final Object o)
     {
-        if (o == null) {
-            for (int i = 0; i < this.size(); i++) {
-                if (data[i] == null) return true;
-            }
-        } else {
-            for (int i = 0; i < this.size(); i++) {
-                if (o.equals(data[i])) return true;
-            }
-        }
-        return false;
+        return this.indexOf(o) > -1;
     }
 
     public Iterator<E> iterator()
