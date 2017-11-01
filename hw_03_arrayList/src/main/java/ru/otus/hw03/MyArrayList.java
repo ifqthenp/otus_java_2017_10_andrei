@@ -203,9 +203,20 @@ public class MyArrayList<E> implements List<E>
         return this.data[index];
     }
 
+    /**
+     * Replaces the element at the specified position in this list
+     * with the specified element (optional operation).
+     *
+     * @param index   index of the element to replace
+     * @param element element to be stored at the specified position
+     * @return the element previously at the specified position
+     */
     public E set(final int index, final E element)
     {
-        return null;
+        checkIndex(index);
+        E temp = data[index];
+        data[index] = element;
+        return temp;
     }
 
     public void add(final int index, final E element)

@@ -216,4 +216,23 @@ class MyArrayListSpec extends Specification {
         myArrayList.size() == myArrayList.toArray().length
         myArrayList.toArray().toString() == "[Tom, Carl, Harry, Harry]"
     }
+
+    def "set(int i, E e) can set an element to specified index"() {
+        setup:
+        myArrayList.add("Alice")
+        myArrayList.add("Bob")
+        myArrayList.add(null)
+        myArrayList.add(null)
+
+        expect:
+        myArrayList.set(index, element) == returnedElement
+        myArrayList.get(index) == newElement
+
+        where:
+        index | element || returnedElement | newElement
+        0     | "Tom"   || "Alice"         | "Tom"
+        1     | "Alice" || "Bob"           | "Alice"
+        2     | "Carl"  || null            | "Carl"
+        3     | null    || null            | null
+    }
 }
