@@ -66,9 +66,37 @@ public class MyArrayList<E> implements List<E>
         return this.indexOf(o) > -1;
     }
 
+    /**
+     * Returns an iterator over the elements in this list in proper sequence.
+     *
+     * @return an iterator over the elements in this list in proper sequence
+     */
     public Iterator<E> iterator()
     {
-        return null;
+        return new IteratorForMyArrayList();
+    }
+
+    private class IteratorForMyArrayList implements Iterator<E>
+    {
+        private int nextIndex;
+
+        @Override
+        public boolean hasNext()
+        {
+            return this.nextIndex != MyArrayList.this.size();
+        }
+
+        @Override
+        public E next()
+        {
+            if (this.hasNext()) {
+                E nextEntry = data[this.nextIndex];
+                this.nextIndex++;
+                return nextEntry;
+            } else {
+                throw new NoSuchElementException("Iterator is after end of list");
+            }
+        }
     }
 
     /**
