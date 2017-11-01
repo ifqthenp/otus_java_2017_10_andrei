@@ -326,11 +326,11 @@ public class MyArrayList<E> implements List<E>
     }
 
     /**
-     * Helper method to check if index supplied is valid.
+     * Helper method to check if index supplied is in valid range [0, n-1].
      */
-    private void checkIndex(final int index)
+    private void checkIndex(final int index, final int size)
     {
-        if (index < 0 || index >= this.size) {
+        if (index < 0 || index >= size) {
             throw new IndexOutOfBoundsException("Index is not valid: " + index);
         }
     }
