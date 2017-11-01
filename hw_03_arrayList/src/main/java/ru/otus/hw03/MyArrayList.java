@@ -1,9 +1,6 @@
 package ru.otus.hw03;
 
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.List;
-import java.util.ListIterator;
+import java.util.*;
 
 /**
  * {@code MyArrayList} class. Array-based implementation of array list.
@@ -102,9 +99,35 @@ public class MyArrayList<E> implements List<E>
         return newData;
     }
 
+    /**
+     * Returns an array containing all of the elements in this list in proper
+     * sequence (from first to last element); the runtime type of the returned
+     * array is that of the specified array. If the list fits in the specified
+     * array, it is returned therein. Otherwise, a new array is allocated with
+     * the runtime type of the specified array and the size of this list.
+     * <p>
+     * If the list fits in the specified array with room to spare (i.e.,
+     * the array has more elements than the list), the element in the array
+     * immediately following the end of the collection is set to null. (This
+     * is useful in determining the length of the list only if the caller
+     * knows that the list does not contain any null elements.)
+     *
+     * @param a   the array into which the elements of the list are to be stored,
+     *            if it is big enough; otherwise, a new array of the same runtime
+     *            type is allocated for this purpose.
+     * @param <T> the runtime type of the array to contain the collection
+     * @return an array containing the elements of the list
+     */
     public <T> T[] toArray(final T[] a)
     {
-        return null;
+        if (a.length < this.size) {
+            return (T[]) Arrays.copyOf(data, size, a.getClass());
+        }
+        System.arraycopy(this.data, 0, a, 0, this.size());
+        if (a.length > this.size()) {
+            a[size] = null;
+        }
+        return a;
     }
 
     /**
