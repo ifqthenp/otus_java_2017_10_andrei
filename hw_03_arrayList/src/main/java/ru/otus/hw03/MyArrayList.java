@@ -219,9 +219,22 @@ public class MyArrayList<E> implements List<E>
         return temp;
     }
 
+    /**
+     * Inserts the specified element at the specified position
+     * in this list (optional operation). Shifts the element
+     * currently at that position (if any) and any subsequent
+     * elements to the right (adds one to their indices).
+     *
+     * @param index   index at which the specified element is to be inserted
+     * @param element element to be inserted
+     */
     public void add(final int index, final E element)
     {
-
+        checkIndex(index, this.size() + 1);
+        growArrayIfNecessary();
+        System.arraycopy(data, index, data, index + 1, this.size() - index);
+        data[index] = element;
+        this.size++;
     }
 
     public E remove(final int index)

@@ -235,4 +235,24 @@ class MyArrayListSpec extends Specification {
         2     | "Carl"  || null            | "Carl"
         3     | null    || null            | null
     }
+
+    def "add(int i, E e) can add an element at specified index"() {
+        setup:
+        myArrayList.add("Alice")
+        myArrayList.add("Bob")
+        myArrayList.add("Tom")
+
+        expect:
+        myArrayList.add(index, element)
+        myArrayList.size() == newSize
+        myArrayList.get(index) == newElement
+
+
+        where:
+        index | element || newElement | newSize
+        0     | "Tom"   || "Tom"      | 4
+        1     | "Harry" || "Harry"    | 4
+        2     | "Tony"  || "Tony"     | 4
+        3     | "Alice" || "Alice"    | 4
+    }
 }
