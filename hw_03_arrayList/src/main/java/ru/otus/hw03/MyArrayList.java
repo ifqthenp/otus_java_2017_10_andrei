@@ -199,7 +199,7 @@ public class MyArrayList<E> implements List<E>
      */
     public E get(final int index)
     {
-        checkIndex(index);
+        checkIndex(index, this.size());
         return this.data[index];
     }
 
@@ -213,7 +213,7 @@ public class MyArrayList<E> implements List<E>
      */
     public E set(final int index, final E element)
     {
-        checkIndex(index);
+        checkIndex(index, this.size());
         E temp = data[index];
         data[index] = element;
         return temp;
