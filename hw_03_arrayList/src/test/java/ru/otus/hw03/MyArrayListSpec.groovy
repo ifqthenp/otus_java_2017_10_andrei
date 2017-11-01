@@ -255,4 +255,25 @@ class MyArrayListSpec extends Specification {
         2     | "Tony"  || "Tony"     | 4
         3     | "Alice" || "Alice"    | 4
     }
+
+    def "remove(int i) can remove an element at specified index"() {
+        setup:
+        myArrayList.add("Alice")    // 0
+        myArrayList.add("Bob")      // 1
+        myArrayList.add(null)       // 2
+        myArrayList.add("Tom")      // 3
+        myArrayList.add("Carl")     // 4
+
+        expect:
+        myArrayList.remove(index) == removedEl
+        myArrayList.size() == 4
+
+        where:
+        index || removedEl
+        2     || null
+        4     || "Carl"
+        0     || "Alice"
+        3     || "Tom"
+        1     || "Bob"
+    }
 }

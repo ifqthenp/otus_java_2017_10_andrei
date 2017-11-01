@@ -237,9 +237,23 @@ public class MyArrayList<E> implements List<E>
         this.size++;
     }
 
+    /**
+     * Removes the element at the specified position in this list
+     * (optional operation). Shifts any subsequent elements to the
+     * left (subtracts one from their indices). Returns the element
+     * that was removed from the list.
+     *
+     * @param index the index of the element to be removed
+     * @return the element previously at the specified position
+     */
     public E remove(final int index)
     {
-        return null;
+        checkIndex(index, this.size());
+        E temp = data[index];
+        System.arraycopy(data, index + 1, data, index, this.size() - 1 - index);
+        data[this.size() - 1] = null;
+        size--;
+        return temp;
     }
 
     /**
