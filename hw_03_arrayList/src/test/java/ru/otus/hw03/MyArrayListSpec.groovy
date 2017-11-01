@@ -276,4 +276,23 @@ class MyArrayListSpec extends Specification {
         3     || "Tom"
         1     || "Bob"
     }
+
+    def "containsAll method returns true if all elements of the given collection can be found in this list"() {
+        setup:
+        myArrayList.add("Alice")    // 0
+        myArrayList.add("Bob")      // 1
+        myArrayList.add(null)       // 2
+        myArrayList.add("Tom")      // 3
+        myArrayList.add("Carl")     // 4
+        myArrayList.add("Harry")    // 5
+
+        Collection coll = new LinkedList()
+        coll.add("Bob")      // 1
+        coll.add(null)       // 2
+        coll.add("Tom")      // 3
+        coll.add("Carl")     // 4
+
+        expect:
+        myArrayList.containsAll(coll)
+    }
 }

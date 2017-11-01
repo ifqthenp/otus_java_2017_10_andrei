@@ -156,9 +156,22 @@ public class MyArrayList<E> implements List<E>
         return false;
     }
 
+    /**
+     * Returns true if this list contains all of the elements
+     * of the specified collection.
+     *
+     * @param c collection to be checked for containment in this list
+     * @return true if this list contains all of the elements
+     * of the specified collection
+     */
     public boolean containsAll(final Collection<?> c)
     {
-        return false;
+        for (final Object item : c) {
+            if (!this.contains(item)) {
+                return false;
+            }
+        }
+        return true;
     }
 
     public boolean addAll(final Collection<? extends E> c)
