@@ -340,6 +340,24 @@ class MyArrayListSpec extends Specification {
         myArrayList == ["Tom", "Carl", "Harry", null, "Alice", "Bob"]
     }
 
+    def "addAll method can add collection to an empty list"() {
+        setup:
+        List<String> coll = new MyArrayList<>()
+        coll.add(null)
+        coll.add("Alice")
+        coll.add("Bob")
+        coll.add("Tony")
+        coll.add(null)
+
+        and:
+        myArrayList.addAll(coll)
+
+        expect:
+        myArrayList.size() == coll.size()
+        myArrayList.containsAll(coll)
+        myArrayList == [null, "Alice", "Bob", "Tony", null]
+    }
+
     def "Collections.copy method can make a copy of list according to the method documentation"() {
         setup:
         List<String> myArrayList = new MyArrayList<>()
