@@ -76,29 +76,6 @@ public class MyArrayList<E> implements List<E>
         return new IteratorForMyArrayList();
     }
 
-    private class IteratorForMyArrayList implements Iterator<E>
-    {
-        private int nextIndex;
-
-        @Override
-        public boolean hasNext()
-        {
-            return this.nextIndex != MyArrayList.this.size();
-        }
-
-        @Override
-        public E next()
-        {
-            if (this.hasNext()) {
-                E nextEntry = data[this.nextIndex];
-                this.nextIndex++;
-                return nextEntry;
-            } else {
-                throw new NoSuchElementException("Iterator is after end of list");
-            }
-        }
-    }
-
     /**
      * Returns an array containing all of the elements in this list in proper
      * sequence (from first to last element).
