@@ -295,4 +295,48 @@ class MyArrayListSpec extends Specification {
         expect:
         myArrayList.containsAll(coll)
     }
+
+    def "MyArrayList<String> can be sorted by Collections sort method"() {
+        setup:
+        List<String> strings = new MyArrayList<>()
+        strings.add("Alice")
+        strings.add("Bob")
+        strings.add("Tom")
+        strings.add("Harry")
+        strings.add("Carl")
+
+        expect:
+        Collections.sort(strings)
+        strings == ["Alice", "Bob", "Carl", "Harry", "Tom"]
+    }
+
+    def "MyArrayList<Integer> can be sorted by Collections sort method"() {
+        setup:
+        List<Integer> integers = new MyArrayList<>()
+        integers.add(-3)
+        integers.add(-30)
+        integers.add(20)
+        integers.add(0)
+        integers.add(5)
+
+        expect:
+        Collections.sort(integers)
+        integers == [-30, -3, 0, 5, 20]
+    }
+
+    def "addAll(Collection c) can append elements of specified collection to end of this list"() {
+        setup:
+        myArrayList.add("Tom")
+        myArrayList.add("Carl")
+        myArrayList.add("Harry")
+
+        List<String> stringList = new LinkedList<>()
+        stringList.add(null)
+        stringList.add("Alice")
+        stringList.add("Bob")
+
+        expect:
+        myArrayList.addAll(stringList)
+        myArrayList == ["Tom", "Carl", "Harry", null, "Alice", "Bob"]
+    }
 }
