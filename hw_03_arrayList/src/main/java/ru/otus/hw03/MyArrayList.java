@@ -345,14 +345,35 @@ public class MyArrayList<E> implements List<E>
         return lastIndex;
     }
 
+    /**
+     * Returns a list iterator over the elements in this list (in proper sequence).
+     *
+     * @return a list iterator over the elements in this list (in proper sequence)
+     */
     public ListIterator<E> listIterator()
     {
-        return null;
+        return new ListIteratorForMyArrayList(0);
     }
 
+    /**
+     * Returns a list iterator over the elements in this list (in proper
+     * sequence), starting at the specified position in the list. The
+     * specified index indicates the first element that would be returned
+     * by an initial call to next. An initial call to previous would return
+     * the element with the specified index minus one.
+     *
+     * @param index index of the first element to be returned
+     *              from the list iterator (by a call to next)
+     * @return a list iterator over the elements in this list (in proper
+     * sequence), starting at the specified position in the list
+     */
     public ListIterator<E> listIterator(final int index)
     {
-        return null;
+        if (index < 0 || index >= this.size) {
+            throw new IndexOutOfBoundsException(
+                "Index supplied to iterator is out of bound: " + index);
+        }
+        return new ListIteratorForMyArrayList(index);
     }
 
     public List<E> subList(final int fromIndex, final int toIndex)
@@ -410,5 +431,166 @@ public class MyArrayList<E> implements List<E>
             }
         }
         return result.append("]").toString();
+    }
+
+    private enum Move
+    {
+        NEXT, PREVIOUS
+    }
+
+    /**
+     * Iterator implementation. Includes remove() method.
+     */
+    private class IteratorForMyArrayList implements Iterator<E>
+    {
+        private int nextIndex;
+        private boolean wasNextCalled;
+
+        @Override
+        public boolean hasNext()
+        {
+            return this.nextIndex < size;
+        }
+
+        @Override
+        public E next()
+        {
+            if (this.nextIndex == size) {
+                throw new NoSuchElementException("No next element");
+            }
+            wasNextCalled = true;
+            return data[nextIndex++];
+        }
+
+        @Override
+        public void remove()
+        {
+            if (!wasNextCalled) {
+                throw new IllegalStateException("remove() call should follow next() call");
+            }
+            MyArrayList.this.remove(nextIndex - 1);
+            nextIndex--;
+            wasNextCalled = false;
+        }
+    }
+
+    private class ListIteratorForMyArrayList implements ListIterator<E>
+    {
+        private int nextIndex;
+        private boolean isRemoveOrSetLegal;
+        private Move lastMove;
+
+        ListIteratorForMyArrayList(final int index)
+        {
+            this.nextIndex = index;
+            this.isRemoveOrSetLegal = false;
+            this.lastMove = null;
+        }
+
+        @Override
+        public boolean hasNext()
+        {
+            return this.nextIndex < size;
+        }
+
+        @Override
+        public E next()
+        {
+            if (this.hasNext()) {
+                this.lastMove = Move.NEXT;
+                this.isRemoveOrSetLegal = true;
+                return data[this.nextIndex++];
+            } else {
+                throw new NoSuchElementException("Illegal call to next(); " +
+                    "iterator is after end of list.");
+            }
+        }
+
+        @Override
+        public boolean hasPrevious()
+        {
+            return this.nextIndex > 0 && this.nextIndex <= size;
+        }
+
+        @Override
+        public E previous()
+        {
+            if (this.hasPrevious()) {
+                this.lastMove = Move.PREVIOUS;
+                this.isRemoveOrSetLegal = true;
+                this.nextIndex--;
+                return data[this.nextIndex];
+            } else {
+                throw new NoSuchElementException("Illegal call to previous(); " +
+                    "iterator is before beginning of the list.");
+            }
+
+        }
+
+        @Override
+        public int nextIndex()
+        {
+            if (this.hasNext()) {
+                return this.nextIndex;
+            } else {
+                return size;
+            }
+        }
+
+        @Override
+        public int previousIndex()
+        {
+            if (this.hasPrevious()) {
+                return this.nextIndex - 1;
+            } else {
+                return -1;
+            }
+        }
+
+        @Override
+        public void remove()
+        {
+            if (this.isRemoveOrSetLegal) {
+                this.isRemoveOrSetLegal = false;
+                if (lastMove.equals(Move.NEXT)) {
+                    MyArrayList.this.remove(this.nextIndex - 1);
+                    this.nextIndex--;
+                } else {
+                    if (lastMove.equals(Move.PREVIOUS)) {
+                        MyArrayList.this.remove(nextIndex);
+                    }
+                }
+            } else {
+                throw new IllegalStateException("Illegal call to remove(); " +
+                    "next() or previous() was not called, or add() or remove()" +
+                    " called since then");
+            }
+        }
+
+        @Override
+        public void set(final E e)
+        {
+            if (this.isRemoveOrSetLegal) {
+                if (this.lastMove.equals(Move.NEXT)) {
+                    data[this.nextIndex - 1] = e;
+                } else {
+                    if (this.lastMove.equals(Move.PREVIOUS)) {
+                        data[this.nextIndex] = e;
+                    }
+                }
+            } else {
+                throw new IllegalStateException("Illegal call to set(); " +
+                    "next() or previous() was not called, or add() or" +
+                    " remove() called since then");
+            }
+        }
+
+        @Override
+        public void add(final E e)
+        {
+            this.isRemoveOrSetLegal = false;
+            this.nextIndex++;
+            MyArrayList.this.add(nextIndex, e);
+        }
     }
 }
