@@ -12,6 +12,8 @@ class MyArrayListSpec extends Specification {
     def setup() {
         myArrayList = new MyArrayList<>()
         assert myArrayList != null
+        assert myArrayList.size() == 0
+        assert myArrayList.isEmpty()
     }
 
     def 'constructed list is MyArrayList.class'() {
@@ -378,5 +380,34 @@ class MyArrayListSpec extends Specification {
         expect:
         dest.size() == 5
         dest == ["Tom", "Carl", null, "Tony", null]
+    }
+
+    def "Collections.addAll(Collection<? super T> c, T... elements) can add list to empty collection"() {
+        setup:
+        Collections.addAll(myArrayList, "1", null, "3")
+
+        expect:
+        !myArrayList.isEmpty()
+        myArrayList.size() == 3
+        myArrayList == ["1", null, "3"]
+    }
+
+
+    def "Collections.addAll(Collection<? super T> c, T... elements) can add list to an existing collection"() {
+        setup:
+        myArrayList.add("Alice")
+        myArrayList.add("Bob")
+        myArrayList.add(null)
+        myArrayList.add("Tony")
+
+        and:
+        String[] strings = ["Harry", "Carl", "Tom", null] as String[]
+        Collections.addAll(myArrayList, strings)
+
+        expect:
+        !myArrayList.isEmpty()
+        myArrayList.size() == 8
+        myArrayList.containsAll(strings)
+        myArrayList == ["Alice", "Bob", null, "Tony", "Harry", "Carl", "Tom", null]
     }
 }
