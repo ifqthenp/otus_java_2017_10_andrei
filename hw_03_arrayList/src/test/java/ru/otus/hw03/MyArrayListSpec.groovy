@@ -339,4 +339,26 @@ class MyArrayListSpec extends Specification {
         myArrayList.addAll(stringList)
         myArrayList == ["Tom", "Carl", "Harry", null, "Alice", "Bob"]
     }
+
+    def "Collections.copy method can make a copy of list according to the method documentation"() {
+        setup:
+        List<String> myArrayList = new MyArrayList<>()
+        myArrayList.add("Tom")
+        myArrayList.add("Carl")
+        myArrayList.add(null)
+
+        List<Object> dest = new MyArrayList<>()
+        dest.add(null)
+        dest.add("Alice")
+        dest.add("Bob")
+        dest.add("Tony")
+        dest.add(null)
+
+        and:
+        Collections.copy(dest, myArrayList)
+
+        expect:
+        dest.size() == 5
+        dest == ["Tom", "Carl", null, "Tony", null]
+    }
 }
