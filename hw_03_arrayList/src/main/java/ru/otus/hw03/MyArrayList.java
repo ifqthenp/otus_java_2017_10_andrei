@@ -8,7 +8,7 @@ import java.util.*;
 @SuppressWarnings("unchecked")
 public class MyArrayList<E> implements List<E>
 {
-    public static final int CAPACITY = 16;
+    private static final int CAPACITY = 10;
     private E[] data;
     private int size;
 
