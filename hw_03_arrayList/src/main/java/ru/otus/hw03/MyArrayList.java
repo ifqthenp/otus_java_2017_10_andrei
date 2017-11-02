@@ -378,7 +378,8 @@ public class MyArrayList<E> implements List<E>
 
     public List<E> subList(final int fromIndex, final int toIndex)
     {
-        return null;
+        throw new UnsupportedOperationException("subList(int fromIndex, int toIndex) " +
+            "is not supported by this implementation of List interface");
     }
 
     /**
