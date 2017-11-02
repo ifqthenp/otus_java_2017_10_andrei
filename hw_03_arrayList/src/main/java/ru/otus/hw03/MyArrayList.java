@@ -200,17 +200,20 @@ public class MyArrayList<E> implements List<E>
 
     public boolean addAll(final int index, final Collection<? extends E> c)
     {
-        return false;
+        throw new UnsupportedOperationException("addAll(int index, Collection c) " +
+            "is not supported by this implementation of List interface");
     }
 
     public boolean removeAll(final Collection<?> c)
     {
-        return false;
+        throw new UnsupportedOperationException("removeAll(Collection<?> c) " +
+            "is not supported by this implementation of List interface");
     }
 
     public boolean retainAll(final Collection<?> c)
     {
-        return false;
+        throw new UnsupportedOperationException("retainAll(Collection<?> c) " +
+            "is not supported by this implementation of List interface");
     }
 
     /**
