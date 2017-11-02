@@ -1,5 +1,5 @@
 # Homework 3
-#### Write your own array-based implementation of List interface.
+#### Write your own array-based implementation of ArrayList
 
 ```class MyArrayList<T> implements List<T>{...}```
 
