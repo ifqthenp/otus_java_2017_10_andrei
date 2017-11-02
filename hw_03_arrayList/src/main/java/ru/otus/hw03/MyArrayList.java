@@ -179,9 +179,23 @@ public class MyArrayList<E> implements List<E>
         return true;
     }
 
+    /**
+     * Appends all of the elements in the specified collection to the end
+     * of this list, in the order that they are returned by the specified
+     * collection's iterator (optional operation). The behavior of this
+     * operation is undefined if the specified collection is modified while
+     * the operation is in progress. (Note that this will occur if
+     * the specified collection is this list, and it's nonempty.)
+     *
+     * @param c collection containing elements to be added to this list
+     * @return true if this list changed as a result of the call
+     */
     public boolean addAll(final Collection<? extends E> c)
     {
-        return false;
+        for (final E item : c) {
+            this.add(item);
+        }
+        return true;
     }
 
     public boolean addAll(final int index, final Collection<? extends E> c)
