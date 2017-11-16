@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <name>otus-2017-10-hw-04-andrei</name>
-    <description>Write MyArrayList class that implements List interface</description>
+    <description>Log GC activity for each type of objects generations</description>
     <url>https://github.com/ifqthenp/otus_java_2017_10_andrei/tree/master/hw_04_garbage_collector</url>
 
     <groupId>ru.otus.2017_10</groupId>
