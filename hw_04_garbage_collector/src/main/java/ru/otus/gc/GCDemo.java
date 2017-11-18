@@ -5,7 +5,30 @@ import javax.management.ObjectName;
 import java.lang.management.ManagementFactory;
 
 /**
- * {@code GCDemo} class.
+ * VM options:
+ *
+ * -agentlib:jdwp=transport=dt_socket,address=14000,server=y,suspend=n
+ * -Xms64m
+ * -Xmx64m
+ * -XX:MaxMetaspaceSize=24m
+ * -XX:+UseG1GC
+ * -XX:+CMSParallelRemarkEnabled
+ * -XX:+UseCMSInitiatingOccupancyOnly
+ * -XX:CMSInitiatingOccupancyFraction=70
+ * -XX:+ScavengeBeforeFullGC
+ * -XX:+CMSScavengeBeforeRemark
+ * -verbose:gc
+ * -Xloggc:hw_04_garbage_collector/logs/gc_%p.log
+ * -XX:+PrintGCDateStamps
+ * -XX:+PrintGCDetails
+ * -XX:+UseGCLogFileRotation
+ * -XX:NumberOfGCLogFiles=10
+ * -XX:GCLogFileSize=1M
+ * -Dcom.sun.management.jmxremote.port=15000
+ * -Dcom.sun.management.jmxremote.authenticate=false
+ * -Dcom.sun.management.jmxremote.ssl=false
+ * -XX:+HeapDumpOnOutOfMemoryError
+ * -XX:HeapDumpPath=hw_04_garbage_collector/dumps/
  */
 public class GCDemo
 {
