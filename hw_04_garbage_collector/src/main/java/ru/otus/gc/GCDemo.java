@@ -1,6 +1,7 @@
 package ru.otus.gc;
 
-import javax.management.*;
+import javax.management.MBeanServer;
+import javax.management.ObjectName;
 import java.lang.management.ManagementFactory;
 
 /**
@@ -12,9 +13,7 @@ public class GCDemo
     {
         System.out.println("Starting pid: " + ManagementFactory.getRuntimeMXBean().getName());
 
-//        int size = 5 * 1000 * 1000;
-//        int size = 50 * 1000 * 1000;//for OOM with -Xms512m
-        int size = 5 * 1000 * 1000; //for small dump
+        int size = 5 * 1000 * 1000;
 
         MBeanServer mbs = ManagementFactory.getPlatformMBeanServer();
         ObjectName name = new ObjectName("ru.otus:type=Benchmark");
