@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-MEMORY="-Xms512m -Xmx512m -XX:MaxMetaspaceSize=256m"
+MEMORY="-Xms64m -Xmx64m -XX:MaxMetaspaceSize=24m"
 REMOTE_DEBUG="-agentlib:jdwp=transport=dt_socket,address=14025,server=y,suspend=n"
 GC_LOG=" -verbose:gc -Xloggc:./logs/gc_pid_%p.log -XX:+PrintGCDateStamps -XX:+PrintGCDetails -XX:+UseGCLogFileRotation -XX:NumberOfGCLogFiles=10 -XX:GCLogFileSize=100M"
 JMX="-Dcom.sun.management.jmxremote.port=15025 -Dcom.sun.management.jmxremote.authenticate=false -Dcom.sun.management.jmxremote.ssl=false"
