@@ -46,6 +46,10 @@ public class FrameworkDemo
      * Processes declared methods for an object and invokes methods
      * that annotated accordingly to testing framework rules.
      *
+     * This solution allows only single instance of {@code Before} and
+     * {@code After} annotation type. The last instance of each type found
+     * in the loop will be used in the framework.
+     *
      * @param o an object to process its declared methods
      */
     private static void declaredMethodsProcessor(Object o)
