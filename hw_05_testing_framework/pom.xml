@@ -28,6 +28,14 @@
         <main.class>ru.otus.framework.FrameworkDemo</main.class>
     </properties>
 
+    <dependencies>
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+            <version>23.5-jre</version>
+        </dependency>
+    </dependencies>
+
     <build>
         <finalName>hw_05_testing_framework</finalName>
         <plugins>
