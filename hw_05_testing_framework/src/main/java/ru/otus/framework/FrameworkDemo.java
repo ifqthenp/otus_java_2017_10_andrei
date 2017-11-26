@@ -34,9 +34,9 @@ public class FrameworkDemo
     {
         for (final ClassPath.ClassInfo classInfo : classes) {
             try {
-                declaredMethodsProcessor(Class.forName(classInfo.getName()).newInstance());
+                declaredMethodsProcessor(Class.forName(classInfo.getName()));
             }
-            catch (InstantiationException | IllegalAccessException | ClassNotFoundException e) {
+            catch (ClassNotFoundException e) {
                 System.out.println(e.getMessage());
             }
         }
@@ -45,30 +45,30 @@ public class FrameworkDemo
     /**
      * Processes declared methods for an object and invokes methods
      * that annotated accordingly to testing framework rules.
-     *
+     * <p>
      * This solution allows only single instance of {@code Before} and
      * {@code After} annotation type. The last instance of each type found
      * in the loop will be used in the framework.
      *
-     * @param o an object to process its declared methods
+     * @param cl a class to process its declared methods
      */
-    private static void declaredMethodsProcessor(Object o)
+    private static void declaredMethodsProcessor(Class<?> cl)
     {
-        Method[] methods = o.getClass().getDeclaredMethods();
-        Method before = null;
-        Method after = null;
-
         try {
+            Method[] methods = cl.newInstance().getClass().getDeclaredMethods();
+            Method before = null;
+            Method after = null;
+
             for (final Method m : methods) {
                 if (m.getDeclaredAnnotations().length > 0) {
                     if (m.isAnnotationPresent(Before.class)) {
                         String beforeMethodName = m.getName();
-                        before = o.getClass().getMethod(beforeMethodName);
+                        before = cl.newInstance().getClass().getMethod(beforeMethodName);
                     }
 
                     if (m.isAnnotationPresent(After.class)) {
                         String afterMethodName = m.getName();
-                        after = o.getClass().getMethod(afterMethodName);
+                        after = cl.newInstance().getClass().getMethod(afterMethodName);
                     }
                 }
             }
@@ -77,21 +77,22 @@ public class FrameworkDemo
                 if (m.getDeclaredAnnotations().length > 0) {
                     if (m.getAnnotation(Test.class) != null) {
                         if (before != null) {
-                            before.invoke(o);
+                            before.invoke(cl.newInstance());
                         }
 
                         String testName = m.getName();
-                        Method testMethod = o.getClass().getMethod(testName);
-                        testMethod.invoke(o);
+                        Method testMethod = cl.newInstance().getClass().getMethod(testName);
+                        testMethod.invoke(cl.newInstance());
 
                         if (after != null) {
-                            after.invoke(o);
+                            after.invoke(cl.newInstance());
                         }
                     }
                 }
             }
         }
-        catch (IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
+        catch (IllegalAccessException | InvocationTargetException |
+            NoSuchMethodException | InstantiationException e) {
             System.out.println(e.getMessage());
         }
     }
@@ -101,7 +102,7 @@ public class FrameworkDemo
      *
      * @param packageName the package to find classes in
      * @return set of classes in the given package
-     * @throws IOException
+     * @throws IOException if the attempt to read class path resources (jar files or directories) failed.
      */
     private static ImmutableSet<ClassPath.ClassInfo> getClassesFromPackage(String packageName) throws IOException
     {
