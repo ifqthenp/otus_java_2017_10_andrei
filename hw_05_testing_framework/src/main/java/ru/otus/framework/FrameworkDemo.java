@@ -7,8 +7,11 @@ import ru.otus.annotations.Before;
 import ru.otus.annotations.Test;
 
 import java.io.IOException;
+import java.lang.annotation.Annotation;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.util.Optional;
+import java.util.stream.Stream;
 
 /**
  * {@code FrameworkDemo} class.
@@ -47,55 +50,64 @@ public class FrameworkDemo
      * that annotated accordingly to testing framework rules.
      * <p>
      * This solution allows only single instance of {@code Before} and
-     * {@code After} annotation type. The last instance of each type found
-     * in the loop will be used in the framework.
+     * {@code After} annotation type. Only the first class of each type
+     * found in the stream of methods will be used in the framework.
      *
      * @param cl a class to process its declared methods
      */
     private static void declaredMethodsProcessor(Class<?> cl)
     {
-        try {
-            Method[] methods = cl.newInstance().getClass().getDeclaredMethods();
-            Method before = null;
-            Method after = null;
+        Method[] methods = cl.getDeclaredMethods();
 
-            for (final Method m : methods) {
-                if (m.getDeclaredAnnotations().length > 0) {
-                    if (m.isAnnotationPresent(Before.class)) {
-                        String beforeMethodName = m.getName();
-                        before = cl.newInstance().getClass().getMethod(beforeMethodName);
+        Optional<Method> before = getAnnotatedMethodFrom(methods, Before.class);
+        Optional<Method> after = getAnnotatedMethodFrom(methods, After.class);
+
+        for (final Method m : methods) {
+            if (m.isAnnotationPresent(Test.class)) {
+
+                try {
+
+                    Object o = cl.newInstance();
+
+                    if (before.isPresent()) {
+                        String beforeMethodName = before.get().getName();
+                        cl.getMethod(beforeMethodName).invoke(o);
                     }
 
-                    if (m.isAnnotationPresent(After.class)) {
-                        String afterMethodName = m.getName();
-                        after = cl.newInstance().getClass().getMethod(afterMethodName);
-                    }
-                }
-            }
+                    String testMethodName = m.getName();
+                    cl.getMethod(testMethodName).invoke(o);
 
-            for (final Method m : methods) {
-                if (m.getDeclaredAnnotations().length > 0) {
-                    if (m.getAnnotation(Test.class) != null) {
-                        if (before != null) {
-                            before.invoke(cl.newInstance());
-                        }
-
-                        String testName = m.getName();
-                        Method testMethod = cl.newInstance().getClass().getMethod(testName);
-                        testMethod.invoke(cl.newInstance());
-
-                        if (after != null) {
-                            after.invoke(cl.newInstance());
-                        }
+                    if (after.isPresent()) {
+                        String afterMethodName = after.get().getName();
+                        cl.getMethod(afterMethodName).invoke(o);
                     }
                 }
+                catch (IllegalAccessException | InvocationTargetException |
+                    NoSuchMethodException | InstantiationException e) {
+                    System.out.println(e.getMessage());
+                }
             }
-        }
-        catch (IllegalAccessException | InvocationTargetException |
-            NoSuchMethodException | InstantiationException e) {
-            System.out.println(e.getMessage());
         }
     }
+
+    /**
+     * Gets the first method annotated with the given annotation type
+     * in the stream of methods.
+     *
+     * @param methods    an array of methods
+     * @param annotation an annotation type
+     * @return optional method if annotated with given annotation type
+     */
+    private static Optional<Method> getAnnotatedMethodFrom(final Method[] methods,
+                                                           final Class<? extends Annotation> annotation)
+    {
+        try (Stream<Method> methodStream = Stream.of(methods)) {
+            return methodStream
+                .filter(method -> method.isAnnotationPresent(annotation))
+                .findFirst();
+        }
+    }
+
 
     /**
      * Utilises Google's Guava library to find classes in given package.
@@ -104,7 +116,7 @@ public class FrameworkDemo
      * @return set of classes in the given package
      * @throws IOException if the attempt to read class path resources (jar files or directories) failed.
      */
-    private static ImmutableSet<ClassPath.ClassInfo> getClassesFromPackage(String packageName) throws IOException
+    private static ImmutableSet<ClassPath.ClassInfo> getClassesFromPackage(final String packageName) throws IOException
     {
         return ClassPath.from(ClassLoader.getSystemClassLoader()).getTopLevelClasses(packageName);
     }
