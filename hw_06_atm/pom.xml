@@ -25,11 +25,21 @@
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
         <org.apache.maven-assembly-plugin.version>3.1.0</org.apache.maven-assembly-plugin.version>
-        <main.class>ru.otus.classes.ATM</main.class>
+        <main.class>ru.otus.classes.ATMDemo</main.class>
     </properties>
 
+    <dependencies>
+        <!-- https://mvnrepository.com/artifact/junit/junit -->
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.12</version>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+
     <build>
-        <finalName>hw_05_atm</finalName>
+        <finalName>hw_06_atm</finalName>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -57,6 +67,5 @@
             </plugin>
         </plugins>
     </build>
-
 
 </project>
