@@ -3,7 +3,6 @@ package ru.otus.classes;
 import ru.otus.interfaces.AtmOperations;
 
 import java.util.Map;
-import java.util.stream.Stream;
 
 /**
  * {@code ATM} class.
@@ -56,8 +55,9 @@ public class ATM implements AtmOperations
 
         int getTotal()
         {
-            return this.cash.keySet().stream()
-                .reduce(0, Integer::sum);
+            return this.cash.entrySet().stream()
+                .mapToInt(entry -> entry.getKey() * entry.getValue())
+                .sum();
         }
     }
 }
