@@ -8,9 +8,9 @@ import java.util.TreeMap;
 import static java.util.Comparator.comparing;
 
 /**
- * {@code AtmImpl} class.
+ * {@code CashMachine} class is an implementation of {@code Atm} interface.
  */
-public class AtmImpl implements Atm
+public class CashMachine implements Atm
 {
     private static final int[] BANKNOTES = {
         CashBuilder.HUNDRED,
@@ -22,26 +22,26 @@ public class AtmImpl implements Atm
 
     private static final int WITHDRAWAL_LIMIT = 300;
 
-    private AtmImpl.Cash atm;
+    private CashMachine.Cash atm;
 
     /**
-     * Constructs an AtmImpl with amount of cash defined in cashBuilder.
+     * Constructs an CashMachine with amount of cash defined in cashBuilder.
      *
      * @param cashBuilder the cash builder with available denominations and amount
      */
-    private AtmImpl(final AtmImpl.CashBuilder cashBuilder)
+    private CashMachine(final CashMachine.CashBuilder cashBuilder)
     {
         this.atm = new Cash(cashBuilder);
     }
 
     /**
-     * Static factory to build an AtmImpl.
+     * Static factory to build an CashMachine.
      *
-     * @return new AtmImpl
+     * @return new CashMachine
      */
-    public static AtmImpl loadCash()
+    public static CashMachine loadCash()
     {
-        return new AtmImpl.CashBuilder().hundred().fifty().twenty().ten().five().build();
+        return new CashMachine.CashBuilder().hundred().fifty().twenty().ten().five().build();
     }
 
     @Override
@@ -58,7 +58,7 @@ public class AtmImpl implements Atm
         }
 
         if (amount > this.getCashTotal()) {
-            throw new IllegalArgumentException("Not enough cash in this AtmImpl");
+            throw new IllegalArgumentException("Not enough cash in this CashMachine");
         }
 
 
@@ -72,22 +72,19 @@ public class AtmImpl implements Atm
                 atm.cash.put(key, atm.cash.get(key) - result.get(key));
             }
         }
-
-        result.forEach((k, v) -> System.out.printf("%3d : %3d%n", k, v));
-        atm.cash.forEach((k, v) -> System.out.printf("%3d : %3d%n", k, v));
     }
 
     /**
      * Helper method that factors an amount requested by user into the
      * smallest number of banknotes and puts the result into a map of
-     * available denominations in this AtmImpl. For example, if user requested
-     * 95, the resulting map will be [50=1, 20=2, 5=1] or, if amount requested
-     * is 285, the result will be [100=2, 50=1, 20=1, 10=1, 5=1].
+     * available denominations in this CashMachine. For example, if user
+     * requested 95, the resulting map will be [50=1, 20=2, 5=1] or, if amount
+     * requested is 285, the result will be [100=2, 50=1, 20=1, 10=1, 5=1].
      *
      * @param result the map to accumulate results of factoring
      * @param amount the amount requested by user
      * @param index  the index that points to current banknote denomination
-     *               in the array of available banknotes for this AtmImpl
+     *               in the array of available banknotes for this CashMachine
      */
     private void cashOperationHelper(SortedMap<Integer, Integer> result, int amount, int index)
     {
@@ -112,21 +109,21 @@ public class AtmImpl implements Atm
 
     /**
      * {@code Cash} class that holds a map of available cash denominations
-     * in AtmImpl as a key and amount for each denomination as a value.
+     * in CashMachine as a key and amount for each denomination as a value.
      */
     private static class Cash
     {
         private SortedMap<Integer, Integer> cash;
 
-        Cash(final AtmImpl.CashBuilder cashBuilder)
+        Cash(final CashMachine.CashBuilder cashBuilder)
         {
             this.cash = cashBuilder.getCashMap();
         }
     }
 
     /**
-     * {@code CashBuilder} class defines all available cash denominations
-     * in AtmImpl and default amount for each denomination.
+     * {@code CashBuilder} class defines all available banknotes denominations
+     * in CashMachine and default amount for each denomination.
      */
     private static class CashBuilder
     {
@@ -180,9 +177,9 @@ public class AtmImpl implements Atm
             return this.cashMap;
         }
 
-        AtmImpl build()
+        CashMachine build()
         {
-            return new AtmImpl(this);
+            return new CashMachine(this);
         }
     }
 }
