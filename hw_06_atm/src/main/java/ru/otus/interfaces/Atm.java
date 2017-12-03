@@ -7,15 +7,14 @@ package ru.otus.interfaces;
 public interface Atm
 {
     /**
-     * Allows user to withdraw given amount of cash from an CashMachine. The exact
-     * amount of cash available for withdrawal is subject to CashMachine implementation.
+     * Allows user to withdraw given amount of cash from an cash machine.
      *
      * @param amount amount of cash to withdraw
      */
     void withdraw(int amount);
 
     /**
-     * Gets total amount of cash available in CashMachine.
+     * Gets total amount of cash available in cash machine.
      *
      * @return total amount of cash
      */

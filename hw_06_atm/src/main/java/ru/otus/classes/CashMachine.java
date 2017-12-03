@@ -25,7 +25,7 @@ public class CashMachine implements Atm
     private CashMachine.Cash atm;
 
     /**
-     * Constructs an CashMachine with amount of cash defined in cashBuilder.
+     * Constructs a cash machine with amount of cash defined in {@code CashBuilder}.
      *
      * @param cashBuilder the cash builder with available denominations and amount
      */
@@ -35,7 +35,7 @@ public class CashMachine implements Atm
     }
 
     /**
-     * Static factory to build an CashMachine.
+     * Static factory to build cash machine.
      *
      * @return new CashMachine
      */
@@ -77,14 +77,14 @@ public class CashMachine implements Atm
     /**
      * Helper method that factors an amount requested by user into the
      * smallest number of banknotes and puts the result into a map of
-     * available denominations in this CashMachine. For example, if user
+     * available denominations in this cash machine. For example, if user
      * requested 95, the resulting map will be [50=1, 20=2, 5=1] or, if amount
      * requested is 285, the result will be [100=2, 50=1, 20=1, 10=1, 5=1].
      *
      * @param result the map to accumulate results of factoring
      * @param amount the amount requested by user
      * @param index  the index that points to current banknote denomination
-     *               in the array of available banknotes for this CashMachine
+     *               in the array of available banknotes for this cash machine
      */
     private void cashOperationHelper(SortedMap<Integer, Integer> result, int amount, int index)
     {
@@ -109,7 +109,7 @@ public class CashMachine implements Atm
 
     /**
      * {@code Cash} class that holds a map of available cash denominations
-     * in CashMachine as a key and amount for each denomination as a value.
+     * in cash machine as a key and amount for each denomination as a value.
      */
     private static class Cash
     {
@@ -123,7 +123,7 @@ public class CashMachine implements Atm
 
     /**
      * {@code CashBuilder} class defines all available banknotes denominations
-     * in CashMachine and default amount for each denomination.
+     * in cash machine and default amount for each denomination.
      */
     private static class CashBuilder
     {
