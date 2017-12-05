@@ -16,7 +16,7 @@ class AtmSpec extends Specification {
         assert atm.cashTotal == 1850
     }
 
-    def "Withdraw operation reduces total cash to a given amount"() {
+    def "Withdraw operation reduces total cash in this ATM to a given amount"() {
         when:
         atm.withdraw(200)
 
