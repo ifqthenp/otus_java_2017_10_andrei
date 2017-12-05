@@ -9,13 +9,9 @@ import java.util.SortedMap;
 public interface Atm
 {
     /**
-<<<<<<< HEAD
-     * Allows user to withdraw given amount of cash from an cash machine.
-=======
      * Allows user to withdraw given amount of cash from a cash machine.
      * The exact amount of cash available for withdrawal is subject to
      * cash machine implementation.
->>>>>>> hw-6-atm
      *
      * @param amount amount of cash to withdraw
      */
