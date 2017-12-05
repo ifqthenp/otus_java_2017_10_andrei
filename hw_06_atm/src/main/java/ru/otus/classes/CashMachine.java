@@ -12,13 +12,7 @@ import static java.util.Comparator.comparing;
  */
 public class CashMachine implements Atm
 {
-    private static final int[] BANKNOTES = {
-        CashBuilder.HUNDRED,
-        CashBuilder.FIFTY,
-        CashBuilder.TWENTY,
-        CashBuilder.TEN,
-        CashBuilder.FIVE
-    };
+    private static final Denominations[] BANKNOTES = Denominations.values();
 
     private static final int WITHDRAWAL_LIMIT = 300;
 
