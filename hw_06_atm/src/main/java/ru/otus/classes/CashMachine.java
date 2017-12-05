@@ -16,26 +16,26 @@ public class CashMachine implements Atm
 
     private static final int WITHDRAWAL_LIMIT = 300;
 
-    private CashMachine.Cash atm;
+    private SortedMap<Integer, Integer> cash;
 
     /**
-     * Constructs an CashMachine with amount of cash defined in cashBuilder.
+     * Constructs a cash machine with amount of cash defined in {@code cashBuilder}.
      *
-     * @param cashBuilder the cash builder with available denominations and amount
+     * @param cashBuilder the initial amount of cash available in this ATM
      */
-    private CashMachine(final CashMachine.CashBuilder cashBuilder)
+    private CashMachine(final CashBuilder cashBuilder)
     {
-        this.atm = new Cash(cashBuilder);
+        this.cash = cashBuilder.getCashMap();
     }
 
     /**
-     * Static factory to build an CashMachine.
+     * Static factory to build a cash machine.
      *
      * @return new CashMachine
      */
-    public static CashMachine loadCash()
+    public static CashMachine loadCash(final CashBuilder cashBuilder)
     {
-        return new CashMachine.CashBuilder().hundred().fifty().twenty().ten().five().build();
+        return new CashMachine(cashBuilder);
     }
 
     @Override
