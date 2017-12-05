@@ -39,21 +39,12 @@ public class CashMachine implements Atm
     }
 
     @Override
-    public void withdraw(final int amount)
+    public int getCashTotal()
     {
-        final int minDenomination = atm.cash.lastKey();
-        if (amount % minDenomination != 0 || amount < minDenomination) {
-            throw new IllegalArgumentException(
-                "Amount is less or is not multiple of " + minDenomination);
-        }
-
-        if (amount > WITHDRAWAL_LIMIT) {
-            throw new IllegalArgumentException("Max withdrawal amount is " + WITHDRAWAL_LIMIT);
-        }
-
-        if (amount > this.getCashTotal()) {
-            throw new IllegalArgumentException("Not enough cash in this CashMachine");
-        }
+        return this.cash.entrySet().stream()
+            .mapToInt(entry -> entry.getKey() * entry.getValue())
+            .sum();
+    }
 
 
         SortedMap<Integer, Integer> result =
