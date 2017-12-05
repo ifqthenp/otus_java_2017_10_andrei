@@ -2,6 +2,7 @@ package ru.otus.classes;
 
 import ru.otus.interfaces.Atm;
 
+import java.util.Set;
 import java.util.SortedMap;
 import java.util.TreeMap;
 
@@ -46,17 +47,23 @@ public class CashMachine implements Atm
             .sum();
     }
 
+    @Override
+    public SortedMap<Integer, Integer> withdraw(final int amount)
+    {
+        checkAmountRequested(amount);
 
         SortedMap<Integer, Integer> result =
             new TreeMap<>(comparing(Integer::intValue).reversed());
 
         cashOperationHelper(result, amount, 0);
 
+        Set<Integer> keys = cash.keySet();
         for (Integer key : result.keySet()) {
-            if (atm.cash.keySet().contains(key)) {
-                atm.cash.put(key, atm.cash.get(key) - result.get(key));
+            if (keys.contains(key)) {
+                cash.put(key, cash.get(key) - result.get(key));
             }
         }
+        return result;
     }
 
     /**
