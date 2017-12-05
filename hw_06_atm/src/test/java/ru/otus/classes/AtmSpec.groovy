@@ -4,9 +4,9 @@ import ru.otus.interfaces.Atm
 import spock.lang.Specification
 
 /**
- * {@code CashMachineSpec} class.
+ * {@code AtmSpec} class is a specification of Atm interface.
  */
-class CashMachineSpec extends Specification {
+class AtmSpec extends Specification {
 
     Atm atm
 
