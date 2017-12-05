@@ -80,98 +80,41 @@ public class CashMachine implements Atm
      */
     private void cashOperationHelper(SortedMap<Integer, Integer> result, int amount, int index)
     {
-        if (index == BANKNOTES[BANKNOTES.length - 1]) return;
+        Integer minDenomination = BANKNOTES[BANKNOTES.length - 1].getValue();
+        if (index == minDenomination) return;
 
-        if (amount < BANKNOTES[index]) {
+        Integer currentBanknote = BANKNOTES[index].getValue();
+        if (amount < currentBanknote) {
             cashOperationHelper(result, amount, index + 1);
         } else {
-            result.put(BANKNOTES[index], amount / BANKNOTES[index]);
-            amount = amount % BANKNOTES[index];
+            result.put(currentBanknote, amount / currentBanknote);
+            amount = amount % currentBanknote;
             cashOperationHelper(result, amount, index + 1);
         }
     }
 
-    @Override
-    public int getCashTotal()
-    {
-        return this.atm.cash.entrySet().stream()
-            .mapToInt(entry -> entry.getKey() * entry.getValue())
-            .sum();
-    }
-
     /**
-     * {@code Cash} class that holds a map of available cash denominations
-     * in CashMachine as a key and amount for each denomination as a value.
+     * Helper method that checks if amount requested for withdrawal is valid.
+     *
+     * @param amount the amount of cash to withdraw
      */
-    private static class Cash
+    private void checkAmountRequested(final int amount)
     {
-        private SortedMap<Integer, Integer> cash;
-
-        Cash(final CashMachine.CashBuilder cashBuilder)
-        {
-            this.cash = cashBuilder.getCashMap();
-        }
-    }
-
-    /**
-     * {@code CashBuilder} class defines all available banknotes denominations
-     * in CashMachine and default amount for each denomination.
-     */
-    private static class CashBuilder
-    {
-        private final static int HUNDRED = 100;
-        private final static int FIFTY = 50;
-        private final static int TWENTY = 20;
-        private final static int TEN = 10;
-        private final static int FIVE = 5;
-
-        private final static int DEFAULT_QUANTITY = 10;
-
-        private SortedMap<Integer, Integer> cashMap;
-
-        CashBuilder()
-        {
-            this.cashMap = new TreeMap<>(comparing(Integer::intValue).reversed());
+        final int minDenomination = cash.lastKey();
+        if (amount % minDenomination != 0) {
+            throw new IllegalArgumentException("Amount is not multiple of " + minDenomination);
         }
 
-        CashBuilder hundred()
-        {
-            this.cashMap.put(HUNDRED, DEFAULT_QUANTITY);
-            return this;
+        if (amount < minDenomination) {
+            throw new IllegalArgumentException("Amount is less than " + minDenomination);
         }
 
-        CashBuilder fifty()
-        {
-            this.cashMap.put(FIFTY, DEFAULT_QUANTITY);
-            return this;
+        if (amount > WITHDRAWAL_LIMIT) {
+            throw new IllegalArgumentException("Max withdrawal amount is " + WITHDRAWAL_LIMIT);
         }
 
-        CashBuilder twenty()
-        {
-            this.cashMap.put(TWENTY, DEFAULT_QUANTITY);
-            return this;
-        }
-
-        CashBuilder ten()
-        {
-            this.cashMap.put(TEN, DEFAULT_QUANTITY);
-            return this;
-        }
-
-        CashBuilder five()
-        {
-            this.cashMap.put(FIVE, DEFAULT_QUANTITY);
-            return this;
-        }
-
-        SortedMap<Integer, Integer> getCashMap()
-        {
-            return this.cashMap;
-        }
-
-        CashMachine build()
-        {
-            return new CashMachine(this);
+        if (amount > this.getCashTotal()) {
+            throw new IllegalArgumentException("Not enough cash in this CashMachine");
         }
     }
 }
