@@ -38,4 +38,22 @@ class CashMachineSpec extends Specification {
         4               || IllegalArgumentException
         -1              || IllegalArgumentException
     }
+
+    def "amount requested for withdrawal is given out in smallest number of banknotes"() {
+        when:
+        SortedMap<Integer, Integer> cash = atm.withdraw(amount)
+
+        then:
+        cash == cashMap
+
+        where:
+        amount || cashMap
+        300    || [100: 3]
+        5      || [5: 1]
+        20     || [20: 1]
+        35     || [20: 1, 10: 1, 5: 1]
+        40     || [20: 2]
+        85     || [50: 1, 20: 1, 10: 1, 5: 1]
+        295    || [100: 2, 50: 1, 20: 2, 5: 1]
+    }
 }
