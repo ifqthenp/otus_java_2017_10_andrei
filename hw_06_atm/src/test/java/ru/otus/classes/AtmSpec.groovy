@@ -11,7 +11,7 @@ class CashMachineSpec extends Specification {
     Atm atm
 
     void setup() {
-        atm = CashMachine.loadCash()
+        atm = new CashBuilder().ten().hundred().twenty().five().fifty().build()
         assert atm != null
         assert atm.cashTotal == 1850
     }
@@ -24,7 +24,7 @@ class CashMachineSpec extends Specification {
         atm.cashTotal == 1650
     }
 
-    def "cash withdrawal operation throws an exception"() {
+    def "cash withdrawal operation throws an exception if amount requested is illegal"() {
         when:
         atm.withdraw(incorrectAmount)
 
