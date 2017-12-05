@@ -1,5 +1,7 @@
 package ru.otus.interfaces;
 
+import java.util.SortedMap;
+
 /**
  * {@code Atm} describes operations allowed for an Automated
  * Teller Machine (ATM) that implements this interface.
@@ -12,7 +14,7 @@ public interface Atm
      *
      * @param amount amount of cash to withdraw
      */
-    void withdraw(int amount);
+    SortedMap<Integer, Integer> withdraw(int amount);
 
     /**
      * Gets total amount of cash available in CashMachine.
