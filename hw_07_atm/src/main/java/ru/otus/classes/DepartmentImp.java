@@ -29,7 +29,7 @@ public class DepartmentImp implements Department
     public BigInteger getDepartmentCashTotal()
     {
         BigInteger sum = BigInteger.ZERO;
-        for (Atm atm : this.atms) {
+        for (final Atm atm : this.atms) {
             sum = sum.add(BigInteger.valueOf(atm.getCashTotal()));
         }
         return sum;
