@@ -12,24 +12,24 @@ import java.util.List;
  */
 public class DepartmentImp implements Department
 {
-    private List<Atm> atms;
+    private List<Atm> atmList;
 
     public DepartmentImp()
     {
-        this.atms = new ArrayList<>();
+        this.atmList = new ArrayList<>();
     }
 
     @Override
     public void addAllAtms(final List<Atm> atms)
     {
-        this.atms.addAll(atms);
+        this.atmList.addAll(atms);
     }
 
     @Override
     public BigInteger getDepartmentCashTotal()
     {
         BigInteger sum = BigInteger.ZERO;
-        for (final Atm atm : this.atms) {
+        for (final Atm atm : this.atmList) {
             sum = sum.add(BigInteger.valueOf(atm.getCashTotal()));
         }
         return sum;
@@ -38,7 +38,7 @@ public class DepartmentImp implements Department
     @Override
     public void restoreAllAtmState(final AtmCaretaker atmCaretaker)
     {
-        for (Atm atm : atms) {
+        for (Atm atm : atmList) {
             atmCaretaker.revert(atm);
         }
     }
@@ -46,7 +46,7 @@ public class DepartmentImp implements Department
     @Override
     public void saveAllAtmState(final AtmCaretaker caretaker)
     {
-        for (Atm atm : atms) {
+        for (Atm atm : atmList) {
             caretaker.save(atm);
         }
     }
