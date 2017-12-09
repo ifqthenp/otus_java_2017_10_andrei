@@ -10,16 +10,16 @@ import static java.util.Comparator.comparing;
  * {@code CashBuilder} class defines all available banknotes denominations in
  * cash machine and default amount for each denomination.
  */
-public class CashBuilder
+public class AtmBuilder
 {
     private SortedMap<Integer, Integer> cashMap;
 
-    public CashBuilder()
+    public AtmBuilder()
     {
         this.cashMap = new TreeMap<>(comparing(Integer::intValue).reversed());
     }
 
-    public CashBuilder banknote(final int denomination, final int amount)
+    public AtmBuilder banknote(final int denomination, final int amount)
     {
         this.cashMap.put(denomination, amount);
         return this;
@@ -30,8 +30,8 @@ public class CashBuilder
         return this.cashMap;
     }
 
-    public ConcreteAtm build()
+    public AtmImp build()
     {
-        return ConcreteAtm.loadCash(this);
+        return AtmImp.loadCash(this);
     }
 }

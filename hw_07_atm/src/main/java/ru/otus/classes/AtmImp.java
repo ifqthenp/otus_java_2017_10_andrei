@@ -12,7 +12,7 @@ import static java.util.Comparator.comparing;
 /**
  * {@code ConcreteAtm} class is an implementation of {@code Atm} interface.
  */
-public class ConcreteAtm implements Atm
+public class AtmImp implements Atm
 {
     private static final Denominations[] BANKNOTES = Denominations.values();
 
@@ -21,23 +21,24 @@ public class ConcreteAtm implements Atm
     private SortedMap<Integer, Integer> cash;
 
     /**
-     * Constructs a cash machine with amount of cash defined in {@code cashBuilder}.
+     * Constructs an ATM with amount of cash defined in {@code atmBuilder}.
      *
-     * @param cashBuilder the initial amount of cash available in this ATM
+     * @param atmBuilder supplies initial amount of cash for this ATM
      */
-    private ConcreteAtm(final CashBuilder cashBuilder)
+    private AtmImp(final AtmBuilder atmBuilder)
     {
-        this.cash = cashBuilder.getCashMap();
+        this.cash = atmBuilder.getCashMap();
     }
 
     /**
-     * Static factory to build a cash machine.
+     * Static factory to build an ATM.
      *
-     * @return new ConcreteAtm
+     * @param atmBuilder supplies initial amount of cash for this ATM
+     * @return new instance of an ATM
      */
-    public static ConcreteAtm loadCash(final CashBuilder cashBuilder)
+    public static AtmImp loadCash(final AtmBuilder atmBuilder)
     {
-        return new ConcreteAtm(cashBuilder);
+        return new AtmImp(atmBuilder);
     }
 
     @Override
@@ -136,14 +137,13 @@ public class ConcreteAtm implements Atm
     {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        final ConcreteAtm that = (ConcreteAtm) o;
+        final AtmImp that = (AtmImp) o;
         return Objects.equals(cash, that.cash);
     }
 
     @Override
     public int hashCode()
     {
-
         return Objects.hash(cash);
     }
 }
