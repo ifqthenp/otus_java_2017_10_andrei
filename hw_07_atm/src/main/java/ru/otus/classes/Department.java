@@ -1,7 +1,7 @@
 package ru.otus.classes;
 
 import ru.otus.interfaces.Atm;
-import ru.otus.interfaces.AtmDepartment;
+import ru.otus.interfaces.Department;
 
 import java.math.BigInteger;
 import java.util.ArrayList;
@@ -10,11 +10,11 @@ import java.util.List;
 /**
  * {@code CashMachineDepartment} class.
  */
-public class Department implements AtmDepartment
+public class DepartmentImp implements Department
 {
     private List<Atm> atms;
 
-    public Department()
+    public DepartmentImp()
     {
         this.atms = new ArrayList<>();
     }
