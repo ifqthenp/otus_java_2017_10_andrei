@@ -3,7 +3,6 @@ package ru.otus.interfaces;
 import ru.otus.classes.AtmCaretaker;
 
 import java.math.BigInteger;
-import java.util.List;
 
 /**
  * {@code AtmDepartment} interface describes operations allowed
@@ -33,9 +32,9 @@ public interface Department
     void saveAllAtmState(AtmCaretaker caretaker);
 
     /**
-     * Adds a list of ATMs to the department.
+     * Adds an ATM to the department.
      *
-     * @param atms a list of ATMs to be added to the department
+     * @param atm an ATM to be added to the department
      */
-    void addAllAtms(List<Atm> atms);
+    void addAtm(Atm atm);
 }

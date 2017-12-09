@@ -20,9 +20,9 @@ public class DepartmentImp implements Department
     }
 
     @Override
-    public void addAllAtms(final List<Atm> atms)
+    public void addAtm(final Atm atm)
     {
-        this.atmList.addAll(atms);
+        this.atmList.add(atm);
     }
 
     @Override
