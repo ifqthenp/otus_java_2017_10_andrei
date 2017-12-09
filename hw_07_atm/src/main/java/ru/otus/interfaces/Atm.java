@@ -11,16 +11,16 @@ import java.util.SortedMap;
 public interface Atm
 {
     /**
-     * Allows user to withdraw given amount of cash from a cash machine.
-     * The exact amount of cash available for withdrawal is subject to
-     * cash machine implementation.
+     * Allows user to withdraw given amount of cash from an ATM.
+     * The exact amount of cash available for withdrawal is
+     * subject to concrete ATM implementation.
      *
      * @param amount amount of cash to withdraw
      */
     SortedMap<Integer, Integer> withdraw(int amount);
 
     /**
-     * Gets total amount of cash available in cash machine.
+     * Gets total amount of cash available in ATM.
      *
      * @return total amount of cash
      */
