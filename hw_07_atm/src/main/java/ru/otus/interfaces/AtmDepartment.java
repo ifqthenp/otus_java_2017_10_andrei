@@ -9,7 +9,7 @@ import java.util.List;
  * {@code AtmDepartment} interface describes operations allowed
  * to perform for an ATM department.
  */
-public interface AtmDepartment
+public interface Department
 {
     /**
      * Gets the total sum of the cash in all ATMs belonging to this department.
