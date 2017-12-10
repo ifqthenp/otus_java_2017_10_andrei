@@ -12,7 +12,7 @@ class AtmSpec extends Specification {
     static final Integer DEFAULT_AMOUNT = 10
 
     void setup() {
-        atm = new CashBuilder()
+        atm = new AtmBuilder()
             .banknote(Denominations.HUNDRED.value, DEFAULT_AMOUNT)
             .banknote(Denominations.FIFTY.value, DEFAULT_AMOUNT)
             .banknote(Denominations.TWENTY.value, DEFAULT_AMOUNT)
