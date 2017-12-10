@@ -9,7 +9,7 @@ public class AtmMemento
 {
     private SortedMap<Integer, Integer> cash;
 
-    public AtmMemento(final SortedMap<Integer, Integer> cash)
+    AtmMemento(final SortedMap<Integer, Integer> cash)
     {
         this.cash = cash;
     }
