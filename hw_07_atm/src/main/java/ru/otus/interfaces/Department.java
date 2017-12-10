@@ -1,7 +1,5 @@
 package ru.otus.interfaces;
 
-import ru.otus.classes.AtmCaretaker;
-
 import java.math.BigInteger;
 
 /**
@@ -18,18 +16,14 @@ public interface Department
     BigInteger getDepartmentCashTotal();
 
     /**
-     * Sets all ATMs in the department to the previously saved state.
-     *
-     * @param caretaker a data structure to retrieve the state of an ATM
+     * Sets each ATM in the department to its previously saved state.
      */
-    void restoreAllAtmState(AtmCaretaker caretaker);
+    void restoreAllAtmState();
 
     /**
-     * Save the current state of all ATMs in the department.
-     *
-     * @param caretaker a data structure to save the state of an ATM
+     * Saves the current state of each ATM in the department.
      */
-    void saveAllAtmState(AtmCaretaker caretaker);
+    void saveAllAtmState();
 
     /**
      * Adds an ATM to the department.
