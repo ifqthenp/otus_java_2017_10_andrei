@@ -4,19 +4,24 @@ import ru.otus.interfaces.Atm;
 import ru.otus.interfaces.Department;
 
 import java.math.BigInteger;
+import java.util.ArrayDeque;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.Queue;
 
 /**
- * {@code CashMachineDepartment} class.
+ * {@code DepartmentImp} class is an implementation of Department interface.
  */
 public class DepartmentImp implements Department
 {
     private List<Atm> atmList;
+    private Queue<AtmMemento> mementoStack;
 
     public DepartmentImp()
     {
         this.atmList = new ArrayList<>();
+        this.mementoStack = Collections.asLifoQueue(new ArrayDeque<>());
     }
 
     @Override
@@ -36,18 +41,20 @@ public class DepartmentImp implements Department
     }
 
     @Override
-    public void restoreAllAtmState(final AtmCaretaker atmCaretaker)
+    public void restoreAllAtmState()
     {
-        for (Atm atm : atmList) {
-            atmCaretaker.revert(atm);
+        for (final Atm atm : atmList) {
+            if (mementoStack.peek() != null) {
+                atm.revert(mementoStack.remove());
+            }
         }
     }
 
     @Override
-    public void saveAllAtmState(final AtmCaretaker caretaker)
+    public void saveAllAtmState()
     {
-        for (Atm atm : atmList) {
-            caretaker.save(atm);
+        for (final Atm atm : atmList) {
+            mementoStack.add(atm.save());
         }
     }
 }
