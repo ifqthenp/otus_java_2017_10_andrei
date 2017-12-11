@@ -1,42 +1,40 @@
 package ru.otus;
 
-import ru.otus.classes.AtmBuilder;
+import ru.otus.classes.AtmImp;
+import ru.otus.classes.DepartmentImp;
 import ru.otus.interfaces.Atm;
-
-import static ru.otus.classes.Denominations.*;
+import ru.otus.interfaces.Department;
 
 /**
  * {@code ATMTest} class.
  */
 public class AtmDemo
 {
-    private final static int DEFAULT_AMOUNT = 10;
-
     public static void main(String[] args)
     {
-        Atm atm1 = new AtmBuilder()
-            .banknote(HUNDRED.getValue(), DEFAULT_AMOUNT)
-            .banknote(FIFTY.getValue(), DEFAULT_AMOUNT)
-            .banknote(TWENTY.getValue(), DEFAULT_AMOUNT)
-            .banknote(TEN.getValue(), DEFAULT_AMOUNT)
-            .banknote(FIVE.getValue(), DEFAULT_AMOUNT)
-            .build();
+        Atm atm1 = AtmImp.loadCash();
+        Atm atm2 = AtmImp.loadCash();
+        Atm atm3 = AtmImp.loadCash();
 
-        Atm atm2 = new AtmBuilder()
-            .banknote(HUNDRED.getValue(), DEFAULT_AMOUNT)
-            .banknote(FIFTY.getValue(), DEFAULT_AMOUNT)
-            .banknote(TWENTY.getValue(), DEFAULT_AMOUNT)
-            .banknote(TEN.getValue(), DEFAULT_AMOUNT)
-            .banknote(FIVE.getValue(), DEFAULT_AMOUNT)
-            .build();
+        Department department = new DepartmentImp();
+        department.addAtm(atm1);
+        department.addAtm(atm2);
+        department.addAtm(atm3);
 
-        Atm atm3 = new AtmBuilder()
-            .banknote(HUNDRED.getValue(), DEFAULT_AMOUNT)
-            .banknote(FIFTY.getValue(), DEFAULT_AMOUNT)
-            .banknote(TWENTY.getValue(), DEFAULT_AMOUNT)
-            .banknote(TEN.getValue(), DEFAULT_AMOUNT)
-            .banknote(FIVE.getValue(), DEFAULT_AMOUNT)
-            .build();
+        System.out.printf("%-25s%d%n", "Before withdrawal:", department.getCashTotal());
 
+        department.saveAllAtmState();
+
+        atm3.withdraw(300);
+        atm2.withdraw(100);
+        atm1.withdraw(300);
+
+        System.out.printf("%-25s%d%n", "After withdrawal:", department.getCashTotal());
+
+        department.restoreAllAtmState();
+        department.restoreAllAtmState();
+        department.restoreAllAtmState();
+
+        System.out.printf("%-25s%d%n", "After restoring state:", department.getCashTotal());
     }
 }
