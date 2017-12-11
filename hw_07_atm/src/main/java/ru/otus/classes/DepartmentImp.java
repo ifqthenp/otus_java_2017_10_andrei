@@ -3,12 +3,7 @@ package ru.otus.classes;
 import ru.otus.interfaces.Atm;
 import ru.otus.interfaces.Department;
 
-import java.math.BigInteger;
-import java.util.ArrayDeque;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Queue;
+import java.util.*;
 
 /**
  * {@code DepartmentImp} class is an implementation of Department interface.
@@ -25,9 +20,9 @@ public class DepartmentImp implements Department
     }
 
     @Override
-    public void addAtm(final Atm atm)
+    public boolean addAtm(final Atm atm)
     {
-        this.atmList.add(atm);
+        return this.atmList.add(Objects.requireNonNull(atm));
     }
 
     @Override
