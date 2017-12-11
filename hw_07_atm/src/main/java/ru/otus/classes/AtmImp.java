@@ -8,13 +8,14 @@ import java.util.SortedMap;
 import java.util.TreeMap;
 
 import static java.util.Comparator.comparing;
+import static ru.otus.classes.Denominations.*;
 
 /**
  * {@code ConcreteAtm} class is an implementation of {@code Atm} interface.
  */
 public class AtmImp implements Atm
 {
-    private static final Denominations[] BANKNOTES = Denominations.values();
+    private static final Denominations[] BANKNOTES = values();
 
     private static final int WITHDRAWAL_LIMIT = 300;
 
