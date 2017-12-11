@@ -26,11 +26,11 @@ public class DepartmentImp implements Department
     }
 
     @Override
-    public BigInteger getDepartmentCashTotal()
+    public long getCashTotal()
     {
-        BigInteger sum = BigInteger.ZERO;
+        long sum = 0;
         for (final Atm atm : this.atmList) {
-            sum = sum.add(BigInteger.valueOf(atm.getCashTotal()));
+            sum += atm.getCashTotal();
         }
         return sum;
     }
