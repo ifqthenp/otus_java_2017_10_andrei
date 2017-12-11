@@ -37,9 +37,16 @@ public class AtmImp implements Atm
      * @param atmBuilder supplies initial amount of cash for this ATM
      * @return new instance of an ATM
      */
-    public static AtmImp loadCash(final AtmBuilder atmBuilder)
+    public static AtmImp loadCash()
     {
-        return new AtmImp(atmBuilder);
+        SortedMap<Integer, Integer> cash =
+            new TreeMap<>(comparing(Integer::intValue).reversed());
+        cash.put(HUNDRED.getValue(), getDefaultAmount());
+        cash.put(FIFTY.getValue(), getDefaultAmount());
+        cash.put(TWENTY.getValue(), getDefaultAmount());
+        cash.put(TEN.getValue(), getDefaultAmount());
+        cash.put(FIVE.getValue(), getDefaultAmount());
+        return new AtmImp(cash);
     }
 
     @Override
