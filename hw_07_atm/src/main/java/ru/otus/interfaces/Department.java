@@ -1,7 +1,5 @@
 package ru.otus.interfaces;
 
-import java.math.BigInteger;
-
 /**
  * {@code AtmDepartment} interface describes operations allowed
  * to perform for an ATM department.
@@ -13,7 +11,7 @@ public interface Department
      *
      * @return total cash sum in all department's ATMs
      */
-    BigInteger getDepartmentCashTotal();
+    long getCashTotal();
 
     /**
      * Sets each ATM in the department to its previously saved state.
