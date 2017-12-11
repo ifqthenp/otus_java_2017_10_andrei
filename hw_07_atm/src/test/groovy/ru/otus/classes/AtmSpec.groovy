@@ -9,16 +9,9 @@ import spock.lang.Specification
 class AtmSpec extends Specification {
 
     Atm atm
-    static final Integer DEFAULT_AMOUNT = 10
 
     void setup() {
-        atm = new AtmBuilder()
-            .banknote(Denominations.HUNDRED.value, DEFAULT_AMOUNT)
-            .banknote(Denominations.FIFTY.value, DEFAULT_AMOUNT)
-            .banknote(Denominations.TWENTY.value, DEFAULT_AMOUNT)
-            .banknote(Denominations.TEN.value, DEFAULT_AMOUNT)
-            .banknote(Denominations.FIVE.value, DEFAULT_AMOUNT)
-            .build()
+        atm = AtmImp.loadCash()
         assert atm != null
         assert atm.cashTotal == 1850
     }
