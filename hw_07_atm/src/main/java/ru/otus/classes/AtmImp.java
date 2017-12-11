@@ -26,9 +26,9 @@ public class AtmImp implements Atm
      *
      * @param atmBuilder supplies initial amount of cash for this ATM
      */
-    private AtmImp(final AtmBuilder atmBuilder)
+    private AtmImp(SortedMap<Integer, Integer> cashMap)
     {
-        this.cash = atmBuilder.getCashMap();
+        this.cash = cashMap;
     }
 
     /**
