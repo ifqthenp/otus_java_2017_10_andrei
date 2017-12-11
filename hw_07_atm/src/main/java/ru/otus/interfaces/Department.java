@@ -28,5 +28,5 @@ public interface Department
      *
      * @param atm an ATM to be added to the department
      */
-    void addAtm(Atm atm);
+    boolean addAtm(final Atm atm);
 }
