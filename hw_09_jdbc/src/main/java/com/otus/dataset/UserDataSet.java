@@ -7,8 +7,7 @@ public class UserDataSet extends DataSet {
     private final int age;
 
     public UserDataSet(final String name, final int age) {
-        DataSet.id += 1;
-        id += DataSet.id;
+        id = DataSet.id;
         this.name = name;
         this.age = age;
     }
