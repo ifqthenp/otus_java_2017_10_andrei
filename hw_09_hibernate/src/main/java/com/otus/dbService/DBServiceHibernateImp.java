@@ -1,9 +1,7 @@
 package com.otus.dbService;
 
-import com.otus.dataset.DataSet;
 import com.otus.dataset.UserDataSet;
 import com.otus.util.HibernateUtil;
-import org.dom4j.util.UserDataDocumentFactory;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -22,7 +20,8 @@ public class DBServiceHibernateImp implements DBService
         this.sessionFactory = HibernateUtil.getSessionFactory();
     }
 
-    public String getLocalStatus() {
+    public String getLocalStatus()
+    {
         return runInSession(session -> session.getTransaction().getStatus().name());
     }
 

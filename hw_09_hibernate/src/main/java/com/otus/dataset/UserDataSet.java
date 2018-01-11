@@ -6,8 +6,8 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "USER_DATASET")
-public class UserDataSet extends DataSet {
-
+public class UserDataSet extends DataSet
+{
     @Column(name = "NAME")
     private String name;
 
